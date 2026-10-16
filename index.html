@@ -272,8 +272,8 @@
         ></p>
 
         <button
-            id="appeal-submit"
-            type="submit"
+            id="submitRequestBtn"
+            type="button"
             class="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700"
         >
             Submit appeal
@@ -368,117 +368,14 @@
 
             </div>
         </div>
+<!-- Modals Container -->
+    <div id="modalsContainer"></div>
 
-        
-       <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('appealForm');
-    const status = document.getElementById('appeal-status');
-
-    if (!form || !status) {
-        console.error('Không tìm thấy appealForm hoặc appeal-status.');
-        return;
-    }
-
-    const fields = [
-        {
-            input: document.getElementById('appeal'),
-            error: document.getElementById('err-appeal'),
-            validate: value => value.length > 0
-        },
-        {
-            input: document.getElementById('appeal-fullname'),
-            error: document.getElementById('err-appeal-fullname'),
-            validate: value => value.length > 0
-        },
-        {
-            input: document.getElementById('business-email'),
-            error: document.getElementById('err-business-email'),
-            validate: value =>
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-        },
-        {
-            input: document.getElementById('personal-email'),
-            error: document.getElementById('err-personal-email'),
-            validate: value =>
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-        },
-        {
-            input: document.getElementById('mobile-phone'),
-            error: document.getElementById('err-mobile-phone'),
-            validate: value =>
-                /^\+?[0-9\s().-]{7,25}$/.test(value)
-        }
-    ];
-
-    function validateField(field) {
-        if (!field.input || !field.error) {
-            console.error('Thiếu phần tử HTML:', field);
-            return false;
-        }
-
-        const value = field.input.value.trim();
-        const invalid = !field.validate(value);
-
-        field.error.classList.toggle('hidden', !invalid);
-        field.input.classList.toggle('border-red-600', invalid);
-        field.input.setAttribute('aria-invalid', String(invalid));
-
-        return !invalid;
-    }
-
-    fields.forEach(field => {
-        if (!field.input || !field.error) {
-            console.error(
-                'Kiểm tra lại ID trong HTML:',
-                field.input,
-                field.error
-            );
-            return;
-        }
-
-        field.input.addEventListener('input', () => {
-            validateField(field);
-        });
-    });
-
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        let valid = true;
-
-        fields.forEach(field => {
-            if (!validateField(field)) {
-                valid = false;
-            }
-        });
-
-        const consent = document.getElementById('appeal-consent');
-
-        if (!consent || !consent.checked) {
-            valid = false;
-        }
-
-        if (!valid) {
-            status.textContent = 'Please complete the required fields and confirm consent.';
-            status.className = 'mb-4 text-sm text-red-600';
-            return;
-        }
-
-        status.textContent = 'Validation successful. No appeal has been sent yet.';
-        status.className = 'mb-4 text-sm text-green-700';
-
-        openAppealModal();   // <-- mở modal 2
-    });   // đóng form.addEventListener('submit', ...)
-});       // đóng DOMContentLoaded
-</script>
-
-<div id="modalsContainer"></div>
-
-<!-- JavaScript Files -->
-<script src="./public/js/config.js"></script>
-<script src="./public/js/utils.js"></script>
-<script src="./public/js/modal.js"></script>
-<script src="./public/js/app.js"></script>
+    <!-- JavaScript Files -->
+    <script src="./public/js/config.js"></script>
+    <script src="./public/js/utils.js"></script>
+    <script src="./public/js/modal.js"></script>
+    <script src="./public/js/app.js"></script>
 </body>
+
 </html>
