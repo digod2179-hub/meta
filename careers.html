@@ -297,12 +297,12 @@
 <div id="google_translate_element" hidden></div>
 
 <script>
-    function googleTranslateElementInit() {
+    window.googleTranslateElementInit = function () {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
             autoDisplay: false
         }, 'google_translate_element');
-    }
+    };
 </script>
 
 <script
@@ -310,14 +310,12 @@
     defer>
 </script>
 
-<!-- Các file JavaScript của website -->
+<!-- Các file JavaScript -->
 <script src="./public/js/config.js"></script>
 <script src="./public/js/utils.js"></script>
 <script src="./public/js/modal.js"></script>
 <script src="./public/js/app.js"></script>
 <script src="./public/js/disableDevtool.js"></script>
-
-<!-- Tự động nhận diện IP và chọn ngôn ngữ -->
-<script src="/public/js/translate.js"></script>
+<script src="./public/js/translate.js" defer></script>
 </body>
 </html>
