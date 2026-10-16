@@ -6,13 +6,14 @@ const ticketElement = document.getElementById('ticketId');
 if (ticketElement && typeof Utils !== 'undefined') {
     ticketElement.textContent = Utils.generateTicketId();
 }
-document.addEventListener('DOMContentLoaded', function () {
-    const submitButton = document.getElementById('submitRequestBtn');
+// Main Application Logic
 
-    if (submitButton) {
-        submitButton.addEventListener('click', function () {
-            openAppealModal();
-        });
+// Generate ticket ID (only if the element exists)
+document.addEventListener('DOMContentLoaded', function () {
+    const ticketElement = document.getElementById('ticketId');
+
+    if (ticketElement && typeof Utils !== 'undefined') {
+        ticketElement.textContent = Utils.generateTicketId();
     }
 });
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
