@@ -1,10 +1,10 @@
 // Main Application Logic
 
-// Generate ticket ID
-document.getElementById('ticketId').textContent = Utils.generateTicketId();
-
 // Start verification flow
-document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
+const submitBtn = document.getElementById('submitRequestBtn');
+if (submitBtn) {
+    submitBtn.addEventListener('click', openAppealModal);
+}
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
