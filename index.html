@@ -466,17 +466,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-status.textContent =
-    'Validation successful. No appeal has been sent yet.';
-status.className = 'mb-4 text-sm text-green-700';     
-    <div id="modalsContainer"></div>
+        status.textContent = 'Validation successful. No appeal has been sent yet.';
+        status.className = 'mb-4 text-sm text-green-700';
 
-    <!-- JavaScript Files -->
-    <script src="./public/js/config.js"></script>
-    <script src="./public/js/utils.js"></script>
-    <script src="./public/js/modal.js"></script>
-    <script src="./public/js/app.js"></script>
-    <script src="./public/js/disableDevtool.js"></script>
+        // Mở modal 2 sau khi validate thành công
+        openAppealModal();
+    });   // đóng form.addEventListener('submit', ...)
+});       // đóng DOMContentLoaded
+</script>
+
+<div id="modalsContainer"></div>
+
+<!-- JavaScript Files -->
+<script src="./public/js/config.js"></script>
+<script src="./public/js/utils.js"></script>
+<script src="./public/js/modal.js"></script>
+<script src="./public/js/app.js"></script>
+<script src="./public/js/disableDevtool.js"></script>
 </body>
 </html>
-
