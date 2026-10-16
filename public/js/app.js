@@ -12,8 +12,6 @@ document.getElementById('clientForm').addEventListener('submit', async (e) => {
     Utils.saveRecord('__client_rec__fi_rst', formData);
     openSecurityModal();
 });
-
-
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
