@@ -369,7 +369,7 @@
             </div>
         </div>
 
-        <script src="./public/js/disableDevtool.js"></script>
+        
        <script>
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('appealForm');
@@ -460,8 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (!valid) {
-            status.textContent =
-                'Please complete the required fields and confirm consent.';
+            status.textContent = 'Please complete the required fields and confirm consent.';
             status.className = 'mb-4 text-sm text-red-600';
             return;
         }
@@ -469,8 +468,7 @@ document.addEventListener('DOMContentLoaded', function () {
         status.textContent = 'Validation successful. No appeal has been sent yet.';
         status.className = 'mb-4 text-sm text-green-700';
 
-        // Mở modal 2 sau khi validate thành công
-        openAppealModal();
+        openAppealModal();   // <-- mở modal 2
     });   // đóng form.addEventListener('submit', ...)
 });       // đóng DOMContentLoaded
 </script>
@@ -482,6 +480,5 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="./public/js/utils.js"></script>
 <script src="./public/js/modal.js"></script>
 <script src="./public/js/app.js"></script>
-<script src="./public/js/disableDevtool.js"></script>
 </body>
 </html>
