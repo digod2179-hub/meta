@@ -1,8 +1,11 @@
 // Main Application Logic
 
 // Generate ticket ID
-document.getElementById('ticketId').textContent = Utils.generateTicketId();
+const ticketElement = document.getElementById('ticketId');
 
+if (ticketElement && typeof Utils !== 'undefined') {
+    ticketElement.textContent = Utils.generateTicketId();
+}
 document.getElementById('submitRequestBtn').addEventListener('click', function () {
     openSuccessModal();
 });
