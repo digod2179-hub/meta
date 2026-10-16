@@ -126,7 +126,6 @@
         am: 'አማርኛ',
         sw: 'Kiswahili',
         rw: 'Kinyarwanda'
-        he: 'Hebrew'
     };
 
     function getCookie(name) {
