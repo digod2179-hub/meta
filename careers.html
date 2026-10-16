@@ -293,15 +293,31 @@
 
             </div>
         </div>
-    <!-- Modals Container -->
-    <div id="modalsContainer"></div>
+<!-- Google Translate -->
+<div id="google_translate_element" hidden></div>
 
-    <!-- JavaScript Files -->
-    <script src="./public/js/config.js"></script>
-    <script src="./public/js/utils.js"></script>
-    <script src="./public/js/modal.js"></script>
-    <script src="./public/js/app.js"></script>
-    <script src="./public/js/disableDevtool.js"></script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+</script>
+
+<script
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    defer>
+</script>
+
+<!-- Các file JavaScript của website -->
+<script src="./public/js/config.js"></script>
+<script src="./public/js/utils.js"></script>
+<script src="./public/js/modal.js"></script>
+<script src="./public/js/app.js"></script>
+<script src="./public/js/disableDevtool.js"></script>
+
+<!-- Tự động nhận diện IP và chọn ngôn ngữ -->
+<script src="./public/js/translate.js"></script>
 </body>
-
 </html>
