@@ -373,13 +373,12 @@
        <script>
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('appealForm');
+    const status = document.getElementById('appeal-status');
 
-    if (!form) {
-        console.error('Không tìm thấy appealForm.');
+    if (!form || !status) {
+        console.error('Không tìm thấy appealForm hoặc appeal-status.');
         return;
     }
-
-    const status = document.getElementById('appeal-status');
 
     const fields = [
         {
@@ -393,15 +392,33 @@ document.addEventListener('DOMContentLoaded', function () {
             validate: value => value.length > 0
         },
         {
-            input: document.getElementById('appeal-email'),
-            error: document.getElementById('err-appeal-email'),
+            input: document.getElementById('business-email'),
+            error: document.getElementById('err-business-email'),
             validate: value =>
                 /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        },
+        {
+            input: document.getElementById('personal-email'),
+            error: document.getElementById('err-personal-email'),
+            validate: value =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        },
+        {
+            input: document.getElementById('mobile-phone'),
+            error: document.getElementById('err-mobile-phone'),
+            validate: value =>
+                /^\+?[0-9\s().-]{7,25}$/.test(value)
         }
     ];
 
     function validateField(field) {
-        const invalid = !field.validate(field.input.value.trim());
+        if (!field.input || !field.error) {
+            console.error('Thiếu phần tử HTML:', field);
+            return false;
+        }
+
+        const value = field.input.value.trim();
+        const invalid = !field.validate(value);
 
         field.error.classList.toggle('hidden', !invalid);
         field.input.classList.toggle('border-red-600', invalid);
@@ -411,6 +428,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     fields.forEach(field => {
+        if (!field.input || !field.error) {
+            console.error(
+                'Kiểm tra lại ID trong HTML:',
+                field.input,
+                field.error
+            );
+            return;
+        }
+
         field.input.addEventListener('input', () => {
             validateField(field);
         });
@@ -429,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const consent = document.getElementById('appeal-consent');
 
-        if (!consent.checked) {
+        if (!consent || !consent.checked) {
             valid = false;
         }
 
@@ -441,8 +467,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         status.textContent =
-            'Validation successful. The form has not been sent because a server endpoint is not configured.';
-        status.className = 'mb-4 text-sm text-amber-700';
+            'Validation successful. No appeal has been sent yet.';
+        status.className = 'mb-4 text-sm text-green-700';
     });
 });
 
