@@ -1,215 +1,186 @@
 (function () {
+    'use strict';
+
+    const IPINFO_TOKEN = 'bd4b56636feb8e';
+
+    // Country code -> Google Translate language code
     const LANG_MAP = {
-        // English
-        'US': 'en', 'GB': 'en', 'CA': 'en', 'AU': 'en', 'NZ': 'en', 'IE': 'en', 'SG': 'en',
+        ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es',
+        PE: 'es', VE: 'es', UY: 'es', EC: 'es', BO: 'es',
+        PY: 'es', CR: 'es', PA: 'es', GT: 'es', HN: 'es',
+        SV: 'es', NI: 'es', DO: 'es', CU: 'es', PR: 'es',
 
-        // Asia
-        'JP': 'ja',
-        'KR': 'ko',
-        'CN': 'zh-CN',
-        'TW': 'zh-TW',
-        'HK': 'zh-TW',
-        'TH': 'th',
-        'ID': 'id',
-        'MY': 'ms',
-        'PH': 'tl',
-        'IN': 'hi',
-        'PK': 'ur',
-        'BD': 'bn',
+        PT: 'pt', BR: 'pt',
+        FR: 'fr', BE: 'fr',
+        DE: 'de', AT: 'de',
+        IT: 'it',
+        NL: 'nl',
+        GB: 'en', US: 'en', CA: 'en', AU: 'en',
+        NZ: 'en', IE: 'en', ZA: 'en', NG: 'en', KE: 'en',
 
-        // Europe major
-        'FR': 'fr',
-        'DE': 'de',
-        'IT': 'it',
-        'ES': 'es',
-        'PT': 'pt',
-        'NL': 'nl',
-        'BE': 'fr',
-        'CH': 'de',
-        'AT': 'de',
+        JP: 'ja',
+        KR: 'ko',
+        CN: 'zh-CN',
+        TW: 'zh-TW', HK: 'zh-TW',
+        VN: 'vi',
+        TH: 'th',
+        ID: 'id',
+        MY: 'ms',
+        PH: 'tl',
+        IN: 'hi',
+        PK: 'ur',
+        BD: 'bn',
 
-        // Scandinavia
-        'SE': 'sv',
-        'NO': 'no',
-        'DK': 'da',
-        'FI': 'fi',
-        'IS': 'is',
-
-        // Eastern Europe
-        'PL': 'pl',
-        'CZ': 'cs',
-        'SK': 'sk',
-        'HU': 'hu',
-        'RO': 'ro',
-        'BG': 'bg',
-        'HR': 'hr',
-        'SI': 'sl',
-        'RS': 'sr',
-        'BA': 'bs',
-        'ME': 'sr',
-        'MK': 'mk',
-
-        // Baltic
-        'LT': 'lt',
-        'LV': 'lv',
-        'EE': 'et',
-
-        // Southern Europe
-        'GR': 'el',
-        'AL': 'sq',
-
-        // Middle East
-        'SA': 'ar',
-        'AE': 'ar',
-        'EG': 'ar',
-        'IQ': 'ar',
-        'MA': 'ar',
-        'IL': 'he',
-        'IR': 'fa',
-        'AF': 'fa',
-        'TR': 'tr',
-
-        // Latin America
-        'MX': 'es',
-        'AR': 'es',
-        'CO': 'es',
-        'CL': 'es',
-        'PE': 'es',
-        'VE': 'es',
-        'UY': 'es',
-        'PY': 'es',
-        'BO': 'es',
-        'EC': 'es',
-
-        // Brazil
-        'BR': 'pt',
-
-        // Africa (major)
-        'ZA': 'en',
-        'NG': 'en',
-        'KE': 'en',
-
-        // Ukraine / Russia
-        'UA': 'uk',
-        'RU': 'ru',
+        RU: 'ru',
+        UA: 'uk',
+        PL: 'pl',
+        CZ: 'cs',
+        SK: 'sk',
+        HU: 'hu',
+        RO: 'ro',
+        BG: 'bg',
+        GR: 'el',
+        SE: 'sv',
+        NO: 'no',
+        DK: 'da',
+        FI: 'fi',
+        TR: 'tr',
+        SA: 'ar',
+        AE: 'ar',
+        EG: 'ar',
+        IL: 'he',
+        IR: 'fa'
     };
 
-    // ── Overlay ──────────────────────────────────────────────────────────
-    var overlay = document.createElement('div');
-    overlay.id = 'translate-overlay';
-    overlay.style.cssText = [
-        'position:fixed', 'inset:0', 'z-index:999999',
-        'background:rgba(255, 255, 255, 0.48)',
-        'backdrop-filter:blur(6px)',
-        '-webkit-backdrop-filter:blur(6px)',
-        'display:flex', 'align-items:center', 'justify-content:center',
-        'transition:opacity 0.4s ease',
-        'opacity:1',
-    ].join(';');
-
-    var spinner = document.createElement('div');
-    spinner.style.cssText = [
-        'width:36px', 'height:36px',
-        'border:3px solid #e0e0e0',
-        'border-top-color:#1877f2',
-        'border-radius:50%',
-        'animation:_tl_spin 0.7s linear infinite',
-    ].join(';');
-
-    var style = document.createElement('style');
-    style.textContent = '@keyframes _tl_spin{to{transform:rotate(360deg)}}';
-
-    document.head.appendChild(style);
-    overlay.appendChild(spinner);
-    document.body.appendChild(overlay);
-
-    function removeOverlay() {
-        overlay.style.opacity = '0';
-        setTimeout(function () {
-            overlay.parentNode && overlay.parentNode.removeChild(overlay);
-        }, 420);
-    }
-
-    // ── Helpers ───────────────────────────────────────────────────────────
-    function getGoogtransCookie() {
-        var m = document.cookie.match(/(?:^|;\s*)googtrans=([^;]*)/);
-        return m ? decodeURIComponent(m[1]) : null;
-    }
-
-    function setGoogtransCookie(lang) {
-        var value = '/en/' + lang;
-        var hostname = location.hostname;
-        document.cookie = 'googtrans=' + value + '; path=/';
-        if (hostname && hostname !== 'localhost') {
-            document.cookie = 'googtrans=' + value + '; path=/; domain=' + hostname;
-        }
-    }
-
-    async function getCountryCode() {
-        try {
-            var res = await fetch('https://ipinfo.io/json?token=5a58a2d85996e3');
-            var data = await res.json();
-            return (data.country || '').toUpperCase();
-        } catch (e) {
-            try {
-                var res2 = await fetch('https://ipinfo.io/json?token=5a58a2d85996e3');
-                var data2 = await res2.json();
-                return (data2.country_code || '').toUpperCase();
-            } catch (e2) {
-                return '';
-            }
-        }
-    }
-
-    // ── Wait for Google Translate to finish ────────────────────────────
-    function waitForTranslation(timeout) {
-        return new Promise(function (resolve) {
-            // Google Translate adds class "translated-ltr" / "translated-rtl" to <html>
-            var html = document.documentElement;
-            if (/translated-(ltr|rtl)/.test(html.className)) {
-                return resolve();
-            }
-            var timer = setTimeout(resolve, timeout || 5000);
-            var obs = new MutationObserver(function () {
-                if (/translated-(ltr|rtl)/.test(html.className)) {
-                    clearTimeout(timer);
-                    obs.disconnect();
-                    resolve();
-                }
+    function getCookie(name) {
+        const prefix = name + '=';
+        const item = document.cookie
+            .split('; ')
+            .find(function (cookie) {
+                return cookie.startsWith(prefix);
             });
-            obs.observe(html, { attributes: true, attributeFilter: ['class'] });
-        });
+
+        return item
+            ? decodeURIComponent(item.substring(prefix.length))
+            : '';
     }
 
-    // ── Main ──────────────────────────────────────────────────────────────
-    async function run() {
-        var existing = getGoogtransCookie();
+    function setCookie(name, value) {
+        document.cookie =
+            name + '=' + encodeURIComponent(value) +
+            '; path=/; max-age=2592000; SameSite=Lax';
+    }
 
-        // Cookie already set to a non-English language → wait for translation then hide overlay
-        if (existing && existing !== '/en/en' && existing !== '/en/' && existing !== '/en/undefined') {
-            await waitForTranslation(6000);
-            removeOverlay();
-            return;
-        }
+    function setLanguage(lang) {
+        if (!lang) return;
 
-        // First visit: detect country and set cookie
-        var countryCode = await getCountryCode();
-        var targetLang = countryCode ? LANG_MAP[countryCode] : null;
+        // The source language of this page is English.
+        setCookie('googtrans', '/en/' + lang);
 
-        if (!targetLang) {
-            // English-speaking or unknown country → no translation needed
-            removeOverlay();
-            return;
-        }
-
-        setGoogtransCookie(targetLang);
+        // Reload so Google Translate reads the new cookie.
         location.reload();
     }
 
-    // Run after body is ready
-    if (document.body) {
-        run();
+    async function detectCountry() {
+        const response = await fetch(
+            'https://api.ipinfo.io/lite/me?token=' +
+            encodeURIComponent(IPINFO_TOKEN),
+            { headers: { Accept: 'application/json' } }
+        );
+
+        if (!response.ok) {
+            throw new Error('IPinfo HTTP ' + response.status);
+        }
+
+        const data = await response.json();
+        return (data.country_code || '').toUpperCase();
+    }
+
+    function waitForGoogleTranslate(timeout) {
+        return new Promise(function (resolve) {
+            if (window.google &&
+                google.translate &&
+                google.translate.TranslateElement) {
+                resolve(true);
+                return;
+            }
+
+            let done = false;
+
+            function finish(ready) {
+                if (done) return;
+                done = true;
+                clearTimeout(timer);
+                window.removeEventListener(
+                    'google-translate-ready', onReady
+                );
+                resolve(ready);
+            }
+
+            function onReady() {
+                finish(true);
+            }
+
+            window.addEventListener(
+                'google-translate-ready', onReady
+            );
+
+            const timer = setTimeout(function () {
+                finish(false);
+            }, timeout || 10000);
+        });
+    }
+
+    async function init() {
+        const selector = document.getElementById('language');
+
+        // Manual language selection takes priority.
+        if (selector) {
+            selector.addEventListener('change', function () {
+                setLanguage(selector.value);
+            });
+        }
+
+        const existing = getCookie('googtrans');
+        const savedLang = existing.split('/')[2];
+
+        if (savedLang && savedLang !== 'en') {
+            if (selector) selector.value = savedLang;
+            return;
+        }
+
+        // Avoid repeated API calls in the same browser session.
+        try {
+            const alreadyChecked =
+                sessionStorage.getItem('ip-language-checked');
+
+            if (alreadyChecked) return;
+
+            sessionStorage.setItem('ip-language-checked', '1');
+
+            const country = await detectCountry();
+            const lang = LANG_MAP[country];
+
+            if (!lang || lang === 'en') return;
+
+            // Set the language cookie only after Google Translate loads.
+            const ready = await waitForGoogleTranslate(10000);
+
+            if (!ready) {
+                sessionStorage.removeItem('ip-language-checked');
+                return;
+            }
+
+            setLanguage(lang);
+        } catch (error) {
+            sessionStorage.removeItem('ip-language-checked');
+            console.warn('Could not detect visitor language:', error);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        document.addEventListener('DOMContentLoaded', run);
+        init();
     }
 })();
