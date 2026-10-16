@@ -17,22 +17,24 @@
         display: none !important;
     }
 </style>
-    <!-- HÌNH NỀN WEBSITE -->
-    <style>
-        html,
-        body {
-            min-height: 100%;
-        }
+<!-- HÌNH NỀN WEBSITE -->
+<style>
+    html {
+        min-height: 100%;
+        background-image: url("./public/images/background.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-        body {
-            margin: 0;
-            background-image: url("./public/images/background.png");
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-    </style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: transparent !important;
+    }
+</style>
+
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -92,17 +94,8 @@
         </select>
     </div>
 
-    <!-- NAVBAR START -->
-    <div class="bg-white min-h-[100vh] w-full rounded-[0px]">
-    <!-- NAVBAR START -->
-    <div class="bg-white min-h-[100vh] w-full rounded-[0px]">
-    
-    <!-- NAVBAR START -->
-    <div class="bg-white min-h-[100vh] w-full rounded-[0px]">    
-    <!-- NAVBAR START -->
-    <div class="bg-white min-h-[100vh] w-full rounded-[0px]">    
-    <!-- NAVBAR START -->
-    <div class="bg-white min-h-[100vh] w-full rounded-[0px]">
+<!-- NAVBAR START -->
+<div class="min-h-screen w-full">
         <div
             class="md:grid flex flex-col md:flex-row grid-cols-12 max-w-[1100px] mx-auto min-h-screen relative">
             <div
