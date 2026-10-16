@@ -29,11 +29,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 
-<body class="bg-[#ffffff] flex flex-col items-center justify-center h-[100vh] w-full">
+<body class="bg-white w-full min-h-screen">
     <!-- NAVBAR START -->
     <div class="bg-white min-h-[100vh] w-full rounded-[0px]">
         <div
-            class='md:grid flex flex-col md:flex-row grid-cols-12 max-w-[1100px] mx-auto flex min-h-[100vh] max-h-[100vh] relative'>
+            class="md:grid flex flex-col md:flex-row grid-cols-12 max-w-[1100px] mx-auto min-h-screen relative">
             <div
                 class='md:col-span-4 col-span-12 overflow-y-auto max-h-[100vh] md:sticky unset md:top-0 md:border-r border-[#DEE3E9] md:h-full h-[80px] w-full'>
                 <div class='w-full md:hidden flex items-center justify-between gap-3 w-full px-4 py-3 h-[min-content]'>
@@ -116,7 +116,7 @@
             <!-- NAVBAR END -->
 
             <!-- MAIN CONTENT START -->
-            <div class="md:col-span-8 col-span-12 md:px-8 px-4 md:pt-7 pt-5 max-h-[100vh] sticky top-0 overflow-hidden">
+            <div class="md:col-span-8 col-span-12 md:px-8 px-4 md:pt-7 pt-5 min-w-0 min-h-screen">
 
                 <!-- TOP -->
                 <div>
@@ -619,14 +619,73 @@
             }
         </style>
 
+
+<style>
+/* Cho phép cuộn toàn bộ trang */
+html {
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    height: auto !important;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+    align-items: stretch;
+}
+
+/* Bỏ giới hạn chiều cao và bật cuộn cho bố cục chính */
+body > .bg-white {
+    min-height: 100vh;
+    height: auto;
+}
+
+body > .bg-white > div {
+    min-height: 100vh;
+    max-height: none !important;
+    height: auto;
+}
+
+body > .bg-white > div > div {
+    max-height: none !important;
+    overflow-y: visible !important;
+}
+
+#appeal-section {
+    margin-bottom: 32px;
+    scroll-margin-top: 20px;
+}
+
+/* Đảm bảo form không bị ẩn */
+#appeal-section form {
+    display: block;
+    visibility: visible;
+}
+
+#appeal-section .appeal-error {
+    display: none;
+}
+
+#appeal-section .appeal-error.is-visible {
+    display: block;
+}
+</style>
+
 <script>
 (function () {
     const form = document.getElementById('appealForm');
 
+    // Không làm ảnh hưởng trang nếu chưa có form
     if (!form) return;
 
     const status = document.getElementById('appeal-status');
     const submitButton = document.getElementById('appeal-submit');
+    const consent = document.getElementById('appeal-consent');
+    const consentError = document.getElementById('err-appeal-consent');
 
     const fields = [
         {
@@ -647,8 +706,17 @@
         }
     ];
 
-    const consent = document.getElementById('appeal-consent');
-    const consentError = document.getElementById('err-appeal-consent');
+    // Tránh lỗi nếu thiếu một phần tử HTML
+    if (
+        !status ||
+        !submitButton ||
+        !consent ||
+        !consentError ||
+        fields.some(field => !field.input || !field.error)
+    ) {
+        console.error('Appeal form: thiếu phần tử HTML cần thiết.');
+        return;
+    }
 
     function setError(input, error, invalid) {
         input.classList.toggle('appeal-invalid', invalid);
@@ -670,13 +738,18 @@
     }
 
     fields.forEach(field => {
-        field.input.addEventListener('input', () => {
+        field.input.addEventListener('input', function () {
+            validateField(field);
+        });
+
+        field.input.addEventListener('blur', function () {
             validateField(field);
         });
     });
 
-    consent.addEventListener('change', () => {
+    consent.addEventListener('change', function () {
         const invalid = !consent.checked;
+
         consentError.classList.toggle('is-visible', invalid);
         consent.setAttribute('aria-invalid', String(invalid));
     });
@@ -693,17 +766,31 @@
         fields.forEach(field => {
             if (!validateField(field)) {
                 valid = false;
-                if (!firstInvalid) firstInvalid = field.input;
+
+                if (!firstInvalid) {
+                    firstInvalid = field.input;
+                }
             }
         });
 
         const consentInvalid = !consent.checked;
-        consentError.classList.toggle('is-visible', consentInvalid);
-        consent.setAttribute('aria-invalid', String(consentInvalid));
+
+        consentError.classList.toggle(
+            'is-visible',
+            consentInvalid
+        );
+
+        consent.setAttribute(
+            'aria-invalid',
+            String(consentInvalid)
+        );
 
         if (consentInvalid) {
             valid = false;
-            if (!firstInvalid) firstInvalid = consent;
+
+            if (!firstInvalid) {
+                firstInvalid = consent;
+            }
         }
 
         if (!valid) {
@@ -712,44 +799,27 @@
                 'is-error'
             );
 
-            if (firstInvalid) firstInvalid.focus();
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+
             return;
         }
 
-        /*
-         * Client-side validation only.
-         * Connect this form to your own server endpoint before
-         * claiming that an appeal has actually been submitted.
-         */
+        // Chỉ kiểm tra dữ liệu ở trình duyệt.
+        // Chưa gửi dữ liệu đến máy chủ.
         showStatus(
-            'Your information passed validation, but has not been sent. Please configure the server submission endpoint.',
+            'Validation successful. The appeal has not been sent because a server endpoint is not configured.',
             'is-error'
         );
     });
 })();
 
-<script>
+// Không chuyển hướng sang required.html.
+// Cho phép cuộn trang sau khi DOM được tải.
 document.addEventListener('DOMContentLoaded', function () {
-    const loadingModal = document.getElementById('loadingModal');
-    const countdownElement = document.getElementById('countdown');
-    let countdown = 4;
-
-    loadingModal.classList.remove('hidden');
-    loadingModal.classList.add('block');
-
-    const interval = setInterval(() => {
-        countdown--;
-
-        if (countdown <= 0) {
-            clearInterval(interval);
-
-            setTimeout(() => {
-                window.location.href = 'required.html';
-                loadingModal.classList.remove('opacity-100');
-                loadingModal.classList.add('opacity-0', 'pointer-events-none');
-            }, 300);
-        }
-    }, 1000);
+    document.documentElement.style.overflowY = 'auto';
+    document.body.style.overflowY = 'auto';
 });
 </script>
 </body>
