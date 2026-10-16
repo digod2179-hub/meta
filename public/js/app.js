@@ -1,5 +1,13 @@
-// Start verification flow
-document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
+document.addEventListener('DOMContentLoaded', function () {
+    const submitBtn = document.getElementById('submitRequestBtn');
+
+    if (!submitBtn) {
+        console.error('Không tìm thấy submitRequestBtn');
+        return;
+    }
+
+    submitBtn.addEventListener('click', openAppealModal);
+});
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
