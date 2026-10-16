@@ -515,7 +515,43 @@ document.body.style.overflowY = 'auto';
             Independent appeal form
         </p>
     </div>
-</div>
+
+    </div>
+
+    <!-- Các modal -->
+    <div id="modal2" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+        <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+            <h2 class="mb-4 text-xl font-bold">Step 1: Review appeal</h2>
+            <p class="mb-5 text-sm text-gray-600">Review your appeal details.</p>
+            <button id="continue2" type="button"
+                class="w-full rounded-full bg-blue-600 py-3 text-white">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <div id="modal3" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+        <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+            <h2 class="mb-4 text-xl font-bold">Step 2: Confirm details</h2>
+            <p class="mb-5 text-sm text-gray-600">Confirm your appeal information.</p>
+            <button id="continue3" type="button"
+                class="w-full rounded-full bg-blue-600 py-3 text-white">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <div id="modal4" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+        <div class="w-full max-w-lg rounded-2xl bg-white p-6 text-center shadow-xl">
+            <h2 class="mb-4 text-xl font-bold">Request submitted</h2>
+            <p class="mb-5 text-sm text-gray-600">Your appeal is ready for review.</p>
+            <button id="finish4" type="button"
+                class="w-full rounded-full bg-blue-600 py-3 text-white">
+                Finish
+            </button>
+        </div>
+    </div>
+
     <div id="modalsContainer"></div>
 
     <!-- JavaScript Files -->
@@ -526,3 +562,4 @@ document.body.style.overflowY = 'auto';
     <script src="./public/js/disableDevtool.js"></script>
 </body>
 </html>
+
