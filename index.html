@@ -468,50 +468,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 status.textContent =
     'Validation successful. No appeal has been sent yet.';
-status.className = 'mb-4 text-sm text-green-700';
-
-// Mở modal
-const modal = document.getElementById('appealModal');
-
-if (modal) {
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-}
-    });
-});
-
-// Allow the entire page to scroll.
-document.documentElement.style.overflowY = 'auto';
-document.body.style.overflowY = 'auto';
-</script>
-    <!-- Independent appeal confirmation modal -->
-<div
-    id="appealModal"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="appealModalTitle"
->
-    <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-        <h2 id="appealModalTitle" class="text-xl font-bold text-gray-900">
-            Review your appeal
-        </h2>
-
-        <p class="mt-3 text-sm text-gray-600">
-            Your form has passed validation. No appeal has been sent yet.
-        </p>
-
-        <div class="mt-6 flex justify-end gap-3">
-            <button
-                type="button"
-                id="closeAppealModal"
-                class="rounded-lg border border-gray-300 px-4 py-2"
-            >
-                Back to form
-            </button>
-        </div>
-    </div>
-</div>        
+status.className = 'mb-4 text-sm text-green-700';     
     <div id="modalsContainer"></div>
 
     <!-- JavaScript Files -->
