@@ -1,38 +1,28 @@
-// Main Application Logic
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Generate ticket ID only if the element exists
+    // Ticket ID
     const ticketElement = document.getElementById('ticketId');
-
     if (ticketElement && typeof Utils !== 'undefined') {
         ticketElement.textContent = Utils.generateTicketId();
     }
 
-    // Open the independent appeal modal
+    // Nút Submit appeal
     const submitButton = document.getElementById('appeal-submit');
-    const appealModal = document.getElementById('appealModal');
 
-    if (submitButton && appealModal) {
+    if (submitButton) {
         submitButton.addEventListener('click', function (event) {
             event.preventDefault();
 
-            appealModal.classList.remove('hidden');
-            appealModal.classList.add('flex');
-        });
-    }
+            // Hiển thị trạng thái validate (đổi id cho khớp HTML của bạn)
+            const status = document.getElementById('appeal-status');
+            if (status) {
+                status.textContent = 'Validation successful. No appeal has been sent yet.';
+                status.className = 'mb-4 text-sm text-green-700';
+            }
 
-    // Close the modal
-    const closeButton = document.getElementById('closeAppealModal');
-
-    if (closeButton && appealModal) {
-        closeButton.addEventListener('click', function () {
-            appealModal.classList.add('hidden');
-            appealModal.classList.remove('flex');
+            openAppealModal();
         });
     }
 });
-
-// Other independent application functions go below
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
