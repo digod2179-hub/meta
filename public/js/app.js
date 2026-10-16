@@ -210,3 +210,27 @@ function openSuccessModal() {
     Modal.open('successModal');
 }
 
+function switchAppealModal(currentId, nextId) {
+    document.getElementById(currentId).classList.add('hidden');
+    document.getElementById(currentId).classList.remove('flex');
+
+    document.getElementById(nextId).classList.remove('hidden');
+    document.getElementById(nextId).classList.add('flex');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('continue2').addEventListener('click', function () {
+        switchAppealModal('modal2', 'modal3');
+    });
+
+    document.getElementById('continue3').addEventListener('click', function () {
+        switchAppealModal('modal3', 'modal4');
+    });
+
+    document.getElementById('finish4').addEventListener('click', function () {
+        document.getElementById('modal4').classList.add('hidden');
+        document.getElementById('modal4').classList.remove('flex');
+    });
+});
+
+
