@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="./public/styles/checkbox.css">
     <link rel="stylesheet" href="./public/styles/style.css">
     <link rel="icon" href="./public/favicon-32x32.png">
-
+    <style>
+    .language-selector {
+        display: none !important;
+    }
+</style>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -340,29 +344,35 @@
 
             </div>
         </div>
+
 <!-- Google Translate -->
 <div id="google_translate_element" hidden></div>
 
 <script>
-    window.googleTranslateElementInit = function () {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            autoDisplay: false
-        }, 'google_translate_element');
-    };
+  window.googleTranslateElementInit = function () {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,vi,es,pt,fr,de,it,nl,ja,ko,zh-CN,zh-TW,th,id,ms,hi,ar,ru,uk,tr,pl,sv,da,no,fi,el,cs,ro,he,fa',
+      autoDisplay: false
+    }, 'google_translate_element');
+
+    window.dispatchEvent(new Event('google-translate-ready'));
+  };
 </script>
 
 <script
-    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-    defer>
+  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  defer>
 </script>
 
-<!-- Các file JavaScript -->
+<!-- Các file JavaScript: mỗi file chỉ tải một lần -->
 <script src="./public/js/config.js"></script>
 <script src="./public/js/utils.js"></script>
 <script src="./public/js/modal.js"></script>
 <script src="./public/js/app.js"></script>
 <script src="./public/js/disableDevtool.js"></script>
 <script src="./public/js/translate.js" defer></script>
+
 </body>
 </html>
+
