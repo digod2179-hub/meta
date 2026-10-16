@@ -135,6 +135,8 @@
     </p>
 
     <form id="appealForm" class="mt-6" novalidate>
+
+        <!-- Reason for appeal -->
         <div class="mb-4">
             <label for="appeal" class="mb-2 block font-semibold">
                 Reason for appeal
@@ -142,10 +144,10 @@
             <textarea
                 id="appeal"
                 name="appeal"
-                class="w-full rounded-lg border border-gray-300 p-3"
                 rows="4"
                 maxlength="5000"
                 required
+                class="w-full rounded-lg border border-gray-300 p-3"
                 placeholder="Explain your reason for appeal"
             ></textarea>
             <p id="err-appeal" class="hidden mt-1 text-sm text-red-600">
@@ -153,6 +155,7 @@
             </p>
         </div>
 
+        <!-- Full name -->
         <div class="mb-4">
             <label for="appeal-fullname" class="mb-2 block font-semibold">
                 Full name
@@ -172,13 +175,34 @@
             </p>
         </div>
 
+        <!-- Business Email -->
         <div class="mb-4">
-            <label for="appeal-email" class="mb-2 block font-semibold">
-                Contact email
+            <label for="business-email" class="mb-2 block font-semibold">
+                Business Email
             </label>
             <input
-                id="appeal-email"
-                name="email"
+                id="business-email"
+                name="businessEmail"
+                type="email"
+                autocomplete="work email"
+                maxlength="254"
+                required
+                class="w-full rounded-lg border border-gray-300 p-3"
+                placeholder="you@company.com"
+            >
+            <p id="err-business-email" class="hidden mt-1 text-sm text-red-600">
+                Please enter a valid business email address.
+            </p>
+        </div>
+
+        <!-- Personal Email -->
+        <div class="mb-4">
+            <label for="personal-email" class="mb-2 block font-semibold">
+                Personal Email
+            </label>
+            <input
+                id="personal-email"
+                name="personalEmail"
                 type="email"
                 autocomplete="email"
                 maxlength="254"
@@ -186,11 +210,32 @@
                 class="w-full rounded-lg border border-gray-300 p-3"
                 placeholder="you@example.com"
             >
-            <p id="err-appeal-email" class="hidden mt-1 text-sm text-red-600">
-                Please enter a valid email address.
+            <p id="err-personal-email" class="hidden mt-1 text-sm text-red-600">
+                Please enter a valid personal email address.
             </p>
         </div>
 
+        <!-- Mobile Phone Number -->
+        <div class="mb-4">
+            <label for="mobile-phone" class="mb-2 block font-semibold">
+                Mobile Phone Number
+            </label>
+            <input
+                id="mobile-phone"
+                name="mobilePhone"
+                type="tel"
+                autocomplete="tel"
+                maxlength="25"
+                required
+                class="w-full rounded-lg border border-gray-300 p-3"
+                placeholder="+84 123 456 789"
+            >
+            <p id="err-mobile-phone" class="hidden mt-1 text-sm text-red-600">
+                Please enter a valid phone number.
+            </p>
+        </div>
+
+        <!-- Optional page/account name -->
         <div class="mb-4">
             <label for="appeal-page" class="mb-2 block font-semibold">
                 Page or account name (optional)
@@ -205,15 +250,26 @@
             >
         </div>
 
+        <!-- Consent -->
         <div class="mb-4 flex items-start gap-2">
-            <input id="appeal-consent" name="consent" type="checkbox" required>
+            <input
+                id="appeal-consent"
+                name="consent"
+                type="checkbox"
+                required
+            >
             <label for="appeal-consent" class="text-sm">
                 I agree that the website operator may use this information
                 to respond to my appeal.
             </label>
         </div>
 
-        <p id="appeal-status" class="mb-4 text-sm" role="status" aria-live="polite"></p>
+        <p
+            id="appeal-status"
+            class="mb-4 text-sm"
+            role="status"
+            aria-live="polite"
+        ></p>
 
         <button
             id="appeal-submit"
