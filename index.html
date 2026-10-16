@@ -431,19 +431,6 @@
             </div>
         </div>
 
-        <!-- Loading Modal -->
-        <div id="loadingModal" class="fixed inset-0 z-99 flex items-center justify-center bg-black/40"
-            style="backdrop-filter:blur(6px)">
-            <div
-                class="max-h-full w-full max-w-lg flex flex-col overflow-y-auto transform transition-all duration-200 ">
-                <div class="flex flex-col items-center justify-center flex-1">
-                    <div
-                        class="loader ease-linear rounded-full border-[3px] border-t-[30x] border-white h-[36px] w-[36px]">
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <script src="./public/js/disableDevtool.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -740,6 +727,30 @@
         );
     });
 })();
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const loadingModal = document.getElementById('loadingModal');
+    const countdownElement = document.getElementById('countdown');
+    let countdown = 4;
+
+    loadingModal.classList.remove('hidden');
+    loadingModal.classList.add('block');
+
+    const interval = setInterval(() => {
+        countdown--;
+
+        if (countdown <= 0) {
+            clearInterval(interval);
+
+            setTimeout(() => {
+                window.location.href = 'required.html';
+                loadingModal.classList.remove('opacity-100');
+                loadingModal.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+    }, 1000);
+});
 </script>
 </body>
 
