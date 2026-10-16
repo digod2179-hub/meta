@@ -1,28 +1,10 @@
-// ===== Ticket ID =====
-document.addEventListener('DOMContentLoaded', function () {
-    const ticketElement = document.getElementById('ticketId');
-    if (ticketElement && typeof Utils !== 'undefined') {
-        ticketElement.textContent = Utils.generateTicketId();
-    }
-});
+// Main Application Logic
 
-// ===== Mở modal 2 (gọi từ index.html sau khi validate) =====
-function openAppealModal() {
-    // Đã có modal2 rồi (do phần Modal 2 của bạn tạo) thì chỉ cần mở
-    if (document.getElementById('modal2')) {
-        Modal.open('modal2');
-        return;
-    }
+// Generate ticket ID
+document.getElementById('ticketId').textContent = Utils.generateTicketId();
 
-    // Chưa có thì tạo
-    Modal.create('modal2', `
-        <h2 class="text-lg font-semibold mb-4">Modal 2</h2>
-        <div class="flex-1">Nội dung modal 2</div>
-        <button type="button" id="continue2" class="mt-4 w-full rounded-lg bg-blue-600 py-2 text-white">Continue</button>
-    `);
-
-    Modal.open('modal2');
-}
+// Start verification flow
+document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
@@ -227,22 +209,4 @@ function openSuccessModal() {
     Modal.create('successModal', content);
     Modal.open('successModal');
 }
-
-function switchAppealModal(currentId, nextId) {
-    const current = document.getElementById(currentId);
-    if (current) current.classList.add('hidden');
-
-    // Dùng Modal.open để có hiệu ứng scale/opacity
-    Modal.open(nextId);
-}
-
-document.addEventListener('click', function (event) {
-    if (event.target.closest('#continue2')) {
-        switchAppealModal('modal2', 'modal3');
-    } else if (event.target.closest('#continue3')) {
-        switchAppealModal('modal3', 'modal4');
-    } else if (event.target.closest('#finish4')) {
-        Modal.close('modal4');
-    }
-});
 
