@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const submitBtn = document.getElementById('submitRequestBtn');
 
-    if (!submitBtn) {
-        console.error('Không tìm thấy submitRequestBtn');
-        return;
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function () {
+            openAppealModal();
+        });
     }
-
-    submitBtn.addEventListener('click', openAppealModal);
 });
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
