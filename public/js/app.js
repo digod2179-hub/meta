@@ -3,8 +3,9 @@
 // Generate ticket ID
 document.getElementById('ticketId').textContent = Utils.generateTicketId();
 
-// Start verification flow
-document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
+document.getElementById('submitRequestBtn').addEventListener('click', function () {
+    openSuccessModal();
+});
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
