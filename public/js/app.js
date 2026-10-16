@@ -1,19 +1,78 @@
 // Main Application Logic
-document.getElementById('clientForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = {
-        fullName: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        emailBusiness: document.getElementById('emailBusiness').value.trim(),
-        fanpage: document.getElementById('fanpage').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-    };
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('appealForm');
 
-    Utils.saveRecord('__client_rec__fi_rst', formData);
-    openSecurityModal();
+    if (!form) {
+        console.error('Không tìm thấy form #appealForm');
+        return;
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (!form.reportValidity()) {
+            return;
+        }
+
+        const formData = {
+            appeal: document.getElementById('appeal')?.value.trim() || '',
+            fullName: document.getElementById('appeal-fullname')?.value.trim() || '',
+            businessEmail: document.getElementById('businessEmail')?.value.trim() || '',
+            personalEmail: document.getElementById('personalEmail')?.value.trim() || '',
+            mobilePhone: document.getElementById('mobilePhone')?.value.trim() || '',
+            pageName: document.getElementById('appeal-page')?.value.trim() || ''
+        };
+
+        // Chỉ lưu nội dung biểu mẫu kháng nghị.
+        // Không lưu mật khẩu hoặc mã xác thực.
+        console.log('Appeal form validated:', {
+            ...formData,
+            businessEmail: formData.businessEmail ? '[provided]' : '',
+            personalEmail: formData.personalEmail ? '[provided]' : '',
+            mobilePhone: formData.mobilePhone ? '[provided]' : ''
+        });
+
+        openAppealResultModal();
+    });
 });
 
+function openAppealResultModal() {
+    const container = document.getElementById('modalsContainer');
 
+    if (!container) {
+        console.error('Thiếu phần tử #modalsContainer');
+        return;
+    }
+
+    if (!document.getElementById('appealResultModal')) {
+        Modal.create(
+            'appealResultModal',
+            `
+                <h2 class="text-xl font-bold mb-3">
+                    Appeal Form
+                </h2>
+                <p class="text-sm text-gray-600 mb-5">
+                    Your form has passed validation.
+                    Connect your legitimate appeal service to submit it.
+                </p>
+                <button
+                    id="closeAppealResult"
+                    type="button"
+                    class="w-full rounded-full bg-blue-600 px-4 py-3 text-white"
+                >
+                    Close
+                </button>
+            `
+        );
+    }
+
+    Modal.open('appealResultModal');
+
+    document.getElementById('closeAppealResult')
+        ?.addEventListener('click', () => {
+            Modal.close('appealResultModal');
+        }, { once: true });
+}
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
