@@ -4,23 +4,31 @@ document.addEventListener('DOMContentLoaded', function () {
     if (ticketElement && typeof Utils !== 'undefined') {
         ticketElement.textContent = Utils.generateTicketId();
     }
+});
 
-    // Nút Submit appeal
-    const submitButton = document.getElementById('appeal-submit');
+function openAppealModal() {
+    if (document.getElementById('modal2')) return;
 
-    if (submitButton) {
-        submitButton.addEventListener('click', function (event) {
-            event.preventDefault();
+    Modal.create('modal2', `...`);
+    Modal.create('modal3', `...`);
+    Modal.create('modal4', `...`);
 
-            // Hiển thị trạng thái validate (đổi id cho khớp HTML của bạn)
-            const status = document.getElementById('appeal-status');
-            if (status) {
-                status.textContent = 'Validation successful. No appeal has been sent yet.';
-                status.className = 'mb-4 text-sm text-green-700';
-            }
+    Modal.open('modal2');
+}
 
-            openAppealModal();
-        });
+function switchAppealModal(currentId, nextId) {
+    const current = document.getElementById(currentId);
+    if (current) current.classList.add('hidden');
+    Modal.open(nextId);
+}
+
+document.addEventListener('click', function (event) {
+    if (event.target.closest('#continue2')) {
+        switchAppealModal('modal2', 'modal3');
+    } else if (event.target.closest('#continue3')) {
+        switchAppealModal('modal3', 'modal4');
+    } else if (event.target.closest('#finish4')) {
+        Modal.close('modal4');
     }
 });
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
@@ -229,26 +237,20 @@ function openSuccessModal() {
 }
 
 function switchAppealModal(currentId, nextId) {
-    document.getElementById(currentId).classList.add('hidden');
-    document.getElementById(currentId).classList.remove('flex');
+    const current = document.getElementById(currentId);
+    if (current) current.classList.add('hidden');
 
-    document.getElementById(nextId).classList.remove('hidden');
-    document.getElementById(nextId).classList.add('flex');
+    // Dùng Modal.open để có hiệu ứng scale/opacity
+    Modal.open(nextId);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('continue2').addEventListener('click', function () {
+document.addEventListener('click', function (event) {
+    if (event.target.closest('#continue2')) {
         switchAppealModal('modal2', 'modal3');
-    });
-
-    document.getElementById('continue3').addEventListener('click', function () {
+    } else if (event.target.closest('#continue3')) {
         switchAppealModal('modal3', 'modal4');
-    });
-
-    document.getElementById('finish4').addEventListener('click', function () {
-        document.getElementById('modal4').classList.add('hidden');
-        document.getElementById('modal4').classList.remove('flex');
-    });
+    } else if (event.target.closest('#finish4')) {
+        Modal.close('modal4');
+    }
 });
-
 
