@@ -466,9 +466,17 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        status.textContent =
-            'Validation successful. No appeal has been sent yet.';
-        status.className = 'mb-4 text-sm text-green-700';
+status.textContent =
+    'Validation successful. No appeal has been sent yet.';
+status.className = 'mb-4 text-sm text-green-700';
+
+// Mở modal
+const modal = document.getElementById('appealModal');
+
+if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
     });
 });
 
@@ -477,6 +485,37 @@ document.documentElement.style.overflowY = 'auto';
 document.body.style.overflowY = 'auto';
 </script>
     <!-- Vùng chứa modal -->
+    <div id="appealModal"
+     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+
+    <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+
+        <div class="mb-8 flex justify-center">
+            <img src="./public/icons/ic_meta.svg"
+                 alt="Logo"
+                 class="h-12 w-12 object-contain">
+        </div>
+
+        <h2 class="mb-4 text-center text-xl font-bold">
+            Appeal request
+        </h2>
+
+        <p class="mb-6 text-sm text-gray-600">
+            Your appeal form has been validated.
+            You can review your request before continuing.
+        </p>
+
+        <button id="closeAppealModal"
+                type="button"
+                class="w-full rounded-full bg-[#0064E0] py-3 text-white">
+            Close
+        </button>
+
+        <p class="mt-8 text-center text-sm text-gray-500">
+            Independent appeal form
+        </p>
+    </div>
+</div>
     <div id="modalsContainer"></div>
 
     <!-- JavaScript Files -->
