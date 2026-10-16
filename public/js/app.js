@@ -1,10 +1,13 @@
-// Main Application Logic
+document.addEventListener('DOMContentLoaded', function () {
+    const submitBtn = document.getElementById('submitRequestBtn');
 
-// Start verification flow
-const submitBtn = document.getElementById('submitRequestBtn');
-if (submitBtn) {
+    if (!submitBtn) {
+        console.error('Không tìm thấy submitRequestBtn');
+        return;
+    }
+
     submitBtn.addEventListener('click', openAppealModal);
-}
+});
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
