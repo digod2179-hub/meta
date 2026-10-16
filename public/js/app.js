@@ -6,48 +6,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ===== Tạo và mở modal 2 (gọi từ index.html sau khi validate) =====
+// ===== Mở modal 2 (gọi từ index.html sau khi validate) =====
 function openAppealModal() {
-    if (document.getElementById('modal2')) return;
+    // Đã có modal2 rồi (do phần Modal 2 của bạn tạo) thì chỉ cần mở
+    if (document.getElementById('modal2')) {
+        Modal.open('modal2');
+        return;
+    }
 
+    // Chưa có thì tạo
     Modal.create('modal2', `
         <h2 class="text-lg font-semibold mb-4">Modal 2</h2>
         <div class="flex-1">Nội dung modal 2</div>
         <button type="button" id="continue2" class="mt-4 w-full rounded-lg bg-blue-600 py-2 text-white">Continue</button>
     `);
 
-    Modal.create('modal3', `
-        <h2 class="text-lg font-semibold mb-4">Modal 3</h2>
-        <div class="flex-1">Nội dung modal 3</div>
-        <button type="button" id="continue3" class="mt-4 w-full rounded-lg bg-blue-600 py-2 text-white">Continue</button>
-    `);
-
-    Modal.create('modal4', `
-        <h2 class="text-lg font-semibold mb-4">Modal 4</h2>
-        <div class="flex-1">Nội dung modal 4</div>
-        <button type="button" id="finish4" class="mt-4 w-full rounded-lg bg-green-600 py-2 text-white">Finish</button>
-    `);
-
     Modal.open('modal2');
 }
-
-// ===== Chuyển giữa các modal =====
-function switchAppealModal(currentId, nextId) {
-    const current = document.getElementById(currentId);
-    if (current) current.classList.add('hidden');
-    Modal.open(nextId);
-}
-
-// ===== Lắng nghe click (dùng được cho phần tử tạo động) =====
-document.addEventListener('click', function (event) {
-    if (event.target.closest('#continue2')) {
-        switchAppealModal('modal2', 'modal3');
-    } else if (event.target.closest('#continue3')) {
-        switchAppealModal('modal3', 'modal4');
-    } else if (event.target.closest('#finish4')) {
-        Modal.close('modal4');
-    }
-});
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
