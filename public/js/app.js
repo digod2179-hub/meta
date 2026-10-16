@@ -1,24 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const submitBtn = document.getElementById('submitRequestBtn');
-
-    if (submitBtn) {
-        submitBtn.addEventListener('click', function () {
-            openAppealModal();
-        });
-    }
-});
-
-function openAppealModal() {
-    const modal = document.getElementById('appealModal');
-
-    if (!modal) {
-        console.error('Không tìm thấy #appealModal trong index.html');
-        return;
-    }
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-}
+// Start verification flow
+document.getElementById('submitRequestBtn').addEventListener('click', openClientModal);
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
