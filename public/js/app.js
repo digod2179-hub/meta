@@ -1,16 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const submitBtn = document.getElementById('appeal-submit');
+    const submitBtn = document.getElementById('submitRequestBtn');
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function () {
+            openAppealModal();
+        });
+    }
+});
+
+function openAppealModal() {
     const modal = document.getElementById('appealModal');
 
-    if (!submitBtn || !modal) {
-        console.error('Không tìm thấy appeal-submit hoặc appealModal');
+    if (!modal) {
+        console.error('Không tìm thấy #appealModal trong index.html');
         return;
     }
 
-    // Nút này nằm trong form; việc mở modal sau khi hợp lệ
-    // nên được gọi từ trình xử lý submit hiện có của form.
-    console.log('Đã tìm thấy nút và modal appeal.');
-});
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
