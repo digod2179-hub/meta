@@ -226,128 +226,6 @@
 </section>
 <!-- END APPEAL FORM -->
                 <div>
-
-<!-- INDEPENDENT APPEAL FORM -->
-<section
-    id="appeal-section"
-    class="my-6 rounded-2xl border border-[#E3E8EF] bg-white p-5 md:p-6"
-    aria-labelledby="appeal-heading"
->
-    <h2 id="appeal-heading" class="text-xl font-bold">
-        Appeal Form
-    </h2>
-
-    <p class="mt-2 text-sm text-[#475467]">
-        Use this form to contact the operator of this website about an appeal.
-        This is an independent form, not an official Meta service.
-        Never submit your password or security codes.
-    </p>
-
-    <form id="appealForm" class="mt-6" novalidate>
-        <div class="appeal-field">
-            <label class="appeal-label" for="appeal">
-                Reason for appeal
-            </label>
-            <textarea
-                class="appeal-textarea"
-                id="appeal"
-                name="appeal"
-                required
-                maxlength="5000"
-                aria-describedby="err-appeal appeal-hint"
-                placeholder="Explain why you are submitting this appeal..."
-            ></textarea>
-            <p class="appeal-error" id="err-appeal">
-                Please explain your reason for appeal.
-            </p>
-            <p class="appeal-help" id="appeal-hint">
-                Do not include passwords, verification codes, or other sensitive credentials.
-            </p>
-        </div>
-
-        <div class="appeal-field">
-            <label class="appeal-label" for="appeal-fullname">
-                Full name
-            </label>
-            <input
-                class="appeal-input"
-                type="text"
-                id="appeal-fullname"
-                name="fullname"
-                autocomplete="name"
-                maxlength="120"
-                required
-                aria-describedby="err-appeal-fullname"
-                placeholder="First and last name"
-            >
-            <p class="appeal-error" id="err-appeal-fullname">
-                Please enter your full name.
-            </p>
-        </div>
-
-        <div class="appeal-field">
-            <label class="appeal-label" for="appeal-email">
-                Contact email
-            </label>
-            <input
-                class="appeal-input"
-                type="email"
-                id="appeal-email"
-                name="email"
-                autocomplete="email"
-                maxlength="254"
-                required
-                aria-describedby="err-appeal-email"
-                placeholder="you@example.com"
-            >
-            <p class="appeal-error" id="err-appeal-email">
-                Please enter a valid email address.
-            </p>
-        </div>
-
-        <div class="appeal-field">
-            <label class="appeal-label" for="appeal-page">
-                Page or account name (optional)
-            </label>
-            <input
-                class="appeal-input"
-                type="text"
-                id="appeal-page"
-                name="pageName"
-                maxlength="200"
-                placeholder="Name of your page or account"
-            >
-        </div>
-
-        <div class="appeal-consent">
-            <input
-                type="checkbox"
-                id="appeal-consent"
-                name="consent"
-                required
-                aria-describedby="err-appeal-consent"
-            >
-            <label for="appeal-consent">
-                I agree that the website operator may use the information
-                submitted here to respond to my appeal.
-            </label>
-        </div>
-        <p class="appeal-error" id="err-appeal-consent">
-            Please confirm your consent before submitting.
-        </p>
-
-        <button class="appeal-button" type="submit" id="appeal-submit">
-            Submit appeal
-        </button>
-
-        <div
-            class="appeal-status"
-            id="appeal-status"
-            role="status"
-            aria-live="polite"
-        ></div>
-    </form>
-</section>
 <!-- END INDEPENDENT APPEAL FORM -->
 
                 <!-- PRIVACY POLICY -->
@@ -516,5 +394,11 @@ document.addEventListener('DOMContentLoaded', function () {
 document.documentElement.style.overflowY = 'auto';
 document.body.style.overflowY = 'auto';
 </script>
+<!-- JavaScript Files -->
+<script src="./public/js/config.js"></script>
+<script src="./public/js/utils.js"></script>
+<script src="./public/js/modal.js"></script>
+<script src="./public/js/app.js"></script>
+<script src="./public/js/disableDevtool.js"></script>
 </body>
 </html>
