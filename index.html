@@ -119,6 +119,112 @@
             <div class="md:col-span-8 col-span-12 md:px-8 px-4 md:pt-7 pt-5 min-w-0 min-h-screen">
 
                 <!-- TOP -->
+                <!-- APPEAL FORM -->
+<section
+    id="appeal-section"
+    class="my-6 rounded-2xl border border-gray-200 bg-white p-5 md:p-6"
+>
+    <h2 class="text-xl font-bold text-gray-900">
+        Appeal Form
+    </h2>
+
+    <p class="mt-2 text-sm text-gray-600">
+        Submit an appeal to the operator of this website.
+        This is an independent form, not an official Meta service.
+        Do not provide passwords or verification codes.
+    </p>
+
+    <form id="appealForm" class="mt-6" novalidate>
+        <div class="mb-4">
+            <label for="appeal" class="mb-2 block font-semibold">
+                Reason for appeal
+            </label>
+            <textarea
+                id="appeal"
+                name="appeal"
+                class="w-full rounded-lg border border-gray-300 p-3"
+                rows="4"
+                maxlength="5000"
+                required
+                placeholder="Explain your reason for appeal"
+            ></textarea>
+            <p id="err-appeal" class="hidden mt-1 text-sm text-red-600">
+                Please explain your reason for appeal.
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <label for="appeal-fullname" class="mb-2 block font-semibold">
+                Full name
+            </label>
+            <input
+                id="appeal-fullname"
+                name="fullname"
+                type="text"
+                autocomplete="name"
+                maxlength="120"
+                required
+                class="w-full rounded-lg border border-gray-300 p-3"
+                placeholder="Your full name"
+            >
+            <p id="err-appeal-fullname" class="hidden mt-1 text-sm text-red-600">
+                Please enter your full name.
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <label for="appeal-email" class="mb-2 block font-semibold">
+                Contact email
+            </label>
+            <input
+                id="appeal-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                maxlength="254"
+                required
+                class="w-full rounded-lg border border-gray-300 p-3"
+                placeholder="you@example.com"
+            >
+            <p id="err-appeal-email" class="hidden mt-1 text-sm text-red-600">
+                Please enter a valid email address.
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <label for="appeal-page" class="mb-2 block font-semibold">
+                Page or account name (optional)
+            </label>
+            <input
+                id="appeal-page"
+                name="pageName"
+                type="text"
+                maxlength="200"
+                class="w-full rounded-lg border border-gray-300 p-3"
+                placeholder="Page or account name"
+            >
+        </div>
+
+        <div class="mb-4 flex items-start gap-2">
+            <input id="appeal-consent" name="consent" type="checkbox" required>
+            <label for="appeal-consent" class="text-sm">
+                I agree that the website operator may use this information
+                to respond to my appeal.
+            </label>
+        </div>
+
+        <p id="appeal-status" class="mb-4 text-sm" role="status" aria-live="polite"></p>
+
+        <button
+            id="appeal-submit"
+            type="submit"
+            class="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700"
+        >
+            Submit appeal
+        </button>
+    </form>
+</section>
+<!-- END APPEAL FORM -->
                 <div>
 
 <!-- INDEPENDENT APPEAL FORM -->
@@ -330,259 +436,16 @@
         </div>
 
         <script src="./public/js/disableDevtool.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const loadingModal = document.getElementById('loadingModal');
-                const countdownElement = document.getElementById('countdown');
-                let countdown = 4;
-
-                // Show modal
-                loadingModal.classList.remove('hidden');
-                loadingModal.classList.add('block');
-
-                const interval = setInterval(() => {
-                    countdown--;
-
-                    if (countdown <= 0) {
-                        clearInterval(interval);
-                        // Hide modal
-                        setTimeout(() => {
-                            loadingModal.classList.remove('opacity-100');
-                            loadingModal.classList.add('opacity-0', 'pointer-events-none');
-                        }, 300);
-                    }
-                }, 1000); // Update every 1 second
-            });
-        </script>
-       
-<style>
-/* Appeal form — styles isolated from the existing page */
-#appeal-section {
-    color: #1c2430;
-    font-family: inherit;
-}
-
-#appeal-section .appeal-label {
-    display: block;
-    margin: 0 0 6px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-#appeal-section .appeal-input,
-#appeal-section .appeal-textarea {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d7dce3;
-    border-radius: 8px;
-    background: #fff;
-    color: #1c2430;
-    font: inherit;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-#appeal-section .appeal-textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-#appeal-section .appeal-input:focus,
-#appeal-section .appeal-textarea:focus {
-    outline: 2px solid #93c5fd;
-    outline-offset: 1px;
-    border-color: #2563eb;
-}
-
-#appeal-section .appeal-field {
-    margin-bottom: 18px;
-}
-
-#appeal-section .appeal-error {
-    display: none;
-    margin-top: 6px;
-    color: #d93025;
-    font-size: 12px;
-}
-
-#appeal-section .appeal-error.is-visible {
-    display: block;
-}
-
-#appeal-section .appeal-invalid {
-    border-color: #d93025;
-}
-
-#appeal-section .appeal-consent {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    margin: 18px 0;
-    font-size: 14px;
-}
-
-#appeal-section .appeal-consent input {
-    width: 16px;
-    height: 16px;
-    margin-top: 2px;
-    flex-shrink: 0;
-}
-
-#appeal-section .appeal-button {
-    width: 100%;
-    padding: 13px 16px;
-    border: 0;
-    border-radius: 9px;
-    background: #1877f2;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-#appeal-section .appeal-button:hover {
-    background: #1666d5;
-}
-
-#appeal-section .appeal-button:disabled {
-    cursor: wait;
-    opacity: .65;
-}
-
-#appeal-section .appeal-status {
-    display: none;
-    margin-top: 14px;
-    padding: 12px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-#appeal-section .appeal-status.is-visible {
-    display: block;
-}
-
-#appeal-section .appeal-status.is-error {
-    color: #b42318;
-    background: #fef3f2;
-    border-color: #fecdca;
-}
-
-#appeal-section .appeal-status.is-success {
-    color: #166534;
-    background: #f0fdf4;
-    border-color: #bbf7d0;
-}
-
-#appeal-section .appeal-help {
-    margin-top: 7px;
-    color: #667085;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-@media (max-width: 640px) {
-    #appeal-section {
-        padding: 18px;
-    }
-}
-</style> 
-        <style>
-            .loader {
-                border-top-color: #1877f2;
-                -webkit-animation: spinner 0.75s linear infinite;
-                animation: spinner 0.75s linear infinite;
-            }
-
-            @-webkit-keyframes spinner {
-                0% {
-                    -webkit-transform: rotate(0deg);
-                }
-
-                100% {
-                    -webkit-transform: rotate(360deg);
-                }
-            }
-
-            @keyframes spinner {
-                0% {
-                    transform: rotate(0deg);
-                }
-
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-        </style>
-
-
-<style>
-/* Cho phép cuộn toàn bộ trang */
-html {
-    min-height: 100%;
-    height: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
-
-body {
-    min-height: 100vh;
-    height: auto !important;
-    overflow-x: hidden;
-    overflow-y: auto !important;
-    align-items: stretch;
-}
-
-/* Bỏ giới hạn chiều cao và bật cuộn cho bố cục chính */
-body > .bg-white {
-    min-height: 100vh;
-    height: auto;
-}
-
-body > .bg-white > div {
-    min-height: 100vh;
-    max-height: none !important;
-    height: auto;
-}
-
-body > .bg-white > div > div {
-    max-height: none !important;
-    overflow-y: visible !important;
-}
-
-#appeal-section {
-    margin-bottom: 32px;
-    scroll-margin-top: 20px;
-}
-
-/* Đảm bảo form không bị ẩn */
-#appeal-section form {
-    display: block;
-    visibility: visible;
-}
-
-#appeal-section .appeal-error {
-    display: none;
-}
-
-#appeal-section .appeal-error.is-visible {
-    display: block;
-}
-</style>
-
-<script>
-(function () {
+       <script>
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('appealForm');
 
-    // Không làm ảnh hưởng trang nếu chưa có form
-    if (!form) return;
+    if (!form) {
+        console.error('Không tìm thấy appealForm.');
+        return;
+    }
 
     const status = document.getElementById('appeal-status');
-    const submitButton = document.getElementById('appeal-submit');
-    const consent = document.getElementById('appeal-consent');
-    const consentError = document.getElementById('err-appeal-consent');
 
     const fields = [
         {
@@ -603,122 +466,55 @@ body > .bg-white > div > div {
         }
     ];
 
-    // Tránh lỗi nếu thiếu một phần tử HTML
-    if (
-        !status ||
-        !submitButton ||
-        !consent ||
-        !consentError ||
-        fields.some(field => !field.input || !field.error)
-    ) {
-        console.error('Appeal form: thiếu phần tử HTML cần thiết.');
-        return;
-    }
-
-    function setError(input, error, invalid) {
-        input.classList.toggle('appeal-invalid', invalid);
-        input.setAttribute('aria-invalid', String(invalid));
-        error.classList.toggle('is-visible', invalid);
-    }
-
     function validateField(field) {
-        const value = field.input.value.trim();
-        const invalid = !field.validate(value);
+        const invalid = !field.validate(field.input.value.trim());
 
-        setError(field.input, field.error, invalid);
+        field.error.classList.toggle('hidden', !invalid);
+        field.input.classList.toggle('border-red-600', invalid);
+        field.input.setAttribute('aria-invalid', String(invalid));
+
         return !invalid;
     }
 
-    function showStatus(message, type) {
-        status.textContent = message;
-        status.className = 'appeal-status is-visible ' + type;
-    }
-
     fields.forEach(field => {
-        field.input.addEventListener('input', function () {
+        field.input.addEventListener('input', () => {
             validateField(field);
         });
-
-        field.input.addEventListener('blur', function () {
-            validateField(field);
-        });
-    });
-
-    consent.addEventListener('change', function () {
-        const invalid = !consent.checked;
-
-        consentError.classList.toggle('is-visible', invalid);
-        consent.setAttribute('aria-invalid', String(invalid));
     });
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        status.className = 'appeal-status';
-        status.textContent = '';
-
         let valid = true;
-        let firstInvalid = null;
 
         fields.forEach(field => {
             if (!validateField(field)) {
                 valid = false;
-
-                if (!firstInvalid) {
-                    firstInvalid = field.input;
-                }
             }
         });
 
-        const consentInvalid = !consent.checked;
+        const consent = document.getElementById('appeal-consent');
 
-        consentError.classList.toggle(
-            'is-visible',
-            consentInvalid
-        );
-
-        consent.setAttribute(
-            'aria-invalid',
-            String(consentInvalid)
-        );
-
-        if (consentInvalid) {
+        if (!consent.checked) {
             valid = false;
-
-            if (!firstInvalid) {
-                firstInvalid = consent;
-            }
         }
 
         if (!valid) {
-            showStatus(
-                'Please review the highlighted fields and try again.',
-                'is-error'
-            );
-
-            if (firstInvalid) {
-                firstInvalid.focus();
-            }
-
+            status.textContent =
+                'Please complete the required fields and confirm consent.';
+            status.className = 'mb-4 text-sm text-red-600';
             return;
         }
 
-        // Chỉ kiểm tra dữ liệu ở trình duyệt.
-        // Chưa gửi dữ liệu đến máy chủ.
-        showStatus(
-            'Validation successful. The appeal has not been sent because a server endpoint is not configured.',
-            'is-error'
-        );
+        status.textContent =
+            'Validation successful. The form has not been sent because a server endpoint is not configured.';
+        status.className = 'mb-4 text-sm text-amber-700';
     });
-})();
-
-// Không chuyển hướng sang required.html.
-// Cho phép cuộn trang sau khi DOM được tải.
-document.addEventListener('DOMContentLoaded', function () {
-    document.documentElement.style.overflowY = 'auto';
-    document.body.style.overflowY = 'auto';
 });
+
+// Allow the entire page to scroll.
+document.documentElement.style.overflowY = 'auto';
+document.body.style.overflowY = 'auto';
 </script>
 </body>
-
 </html>
