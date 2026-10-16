@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mobilePhone: formData.mobilePhone ? '[provided]' : ''
         });
 
-        openAppealResultModal();
+        openAppealReviewModal(formData);
     });
 });
 
@@ -274,4 +274,114 @@ function openSuccessModal() {
     Modal.create('successModal', content);
     Modal.open('successModal');
 }
+function openAppealReviewModal(formData) {
+    const container = document.getElementById('modalsContainer');
 
+    if (!container) {
+        console.error('Không tìm thấy #modalsContainer');
+        return;
+    }
+
+    const existing = document.getElementById('appealReviewModal');
+    if (existing) {
+        existing.remove();
+    }
+
+    const content = `
+        <h2 class="text-xl font-bold mb-3">
+            Review your appeal
+        </h2>
+
+        <p class="text-sm text-gray-600 mb-4">
+            Please review your appeal details before continuing.
+        </p>
+
+        <div class="space-y-3 text-sm mb-5">
+            <p>
+                <strong>Full name:</strong>
+                ${escapeAppealText(formData.fullName)}
+            </p>
+
+            <p>
+                <strong>Reason for appeal:</strong>
+                ${escapeAppealText(formData.appeal)}
+            </p>
+
+            <p>
+                <strong>Page or account:</strong>
+                ${escapeAppealText(formData.pageName || 'Not provided')}
+            </p>
+        </div>
+
+        <button
+            type="button"
+            id="confirmAppealReview"
+            class="w-full rounded-full bg-blue-600 px-4 py-3 text-white"
+        >
+            Confirm appeal
+        </button>
+
+        <button
+            type="button"
+            id="cancelAppealReview"
+            class="w-full mt-3 rounded-full border px-4 py-3"
+        >
+            Cancel
+        </button>
+    `;
+
+    Modal.create('appealReviewModal', content);
+    Modal.open('appealReviewModal');
+
+    document.getElementById('confirmAppealReview')
+        .addEventListener('click', () => {
+            Modal.close('appealReviewModal');
+            openAppealConfirmationModal();
+        });
+
+    document.getElementById('cancelAppealReview')
+        .addEventListener('click', () => {
+            Modal.close('appealReviewModal');
+        });
+}
+
+function openAppealConfirmationModal() {
+    Modal.create(
+        'appealConfirmationModal',
+        `
+            <h2 class="text-xl font-bold mb-3">
+                Appeal ready for submission
+            </h2>
+
+            <p class="text-sm text-gray-600 mb-5">
+                Your information has been reviewed.
+                Connect your authorized appeal endpoint to submit it.
+            </p>
+
+            <button
+                type="button"
+                id="closeAppealConfirmation"
+                class="w-full rounded-full bg-blue-600 px-4 py-3 text-white"
+            >
+                Close
+            </button>
+        `
+    );
+
+    Modal.open('appealConfirmationModal');
+
+    document.getElementById('closeAppealConfirmation')
+        .addEventListener('click', () => {
+            Modal.close('appealConfirmationModal');
+        });
+}
+
+function escapeAppealText(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[char]);
+}
