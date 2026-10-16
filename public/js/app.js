@@ -8,7 +8,7 @@ document.getElementById('submitRequestBtn').addEventListener('click', openClient
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
-        <div class="h-full flex flex-col items-center justify-between flex-1">
+        <div class="flex h-full w-full flex-col justify-between">
             <div class="w-12 h-12 mb-5 mx-auto">
                 <img src="./public/icons/ic_logo.svg" alt="Meta" class="w-full">
             </div>
