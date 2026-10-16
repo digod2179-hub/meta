@@ -6,8 +6,14 @@ const ticketElement = document.getElementById('ticketId');
 if (ticketElement && typeof Utils !== 'undefined') {
     ticketElement.textContent = Utils.generateTicketId();
 }
-document.getElementById('submitRequestBtn').addEventListener('click', function () {
-    openSuccessModal();
+document.addEventListener('DOMContentLoaded', function () {
+    const submitButton = document.getElementById('submitRequestBtn');
+
+    if (submitButton) {
+        submitButton.addEventListener('click', function () {
+            openAppealModal();
+        });
+    }
 });
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
