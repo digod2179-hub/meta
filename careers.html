@@ -345,6 +345,7 @@
             </div>
         </div>
 
+
 <!-- Google Translate -->
 <div id="google_translate_element" hidden></div>
 
@@ -352,7 +353,7 @@
   window.googleTranslateElementInit = function () {
     new google.translate.TranslateElement({
       pageLanguage: 'en',
-      includedLanguages: 'en,vi,es,pt,fr,de,it,nl,ja,ko,zh-CN,zh-TW,th,id,ms,hi,ar,ru,uk,tr,pl,sv,da,no,fi,el,cs,ro,he,fa,sk,he',
+      includedLanguages: 'en,vi,es,pt,fr,de,it,nl,ja,ko,zh-CN,zh-TW,th,id,ms,hi,ar,ru,uk,tr,pl,sv,da,no,fi,el,cs,ro,he,fa,sk',
       autoDisplay: false
     }, 'google_translate_element');
 
@@ -364,13 +365,20 @@
   src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
   defer>
 </script>
+
+<!-- Container cho modal -->
 <div id="modalsContainer"></div>
+
+<!-- Các file JavaScript: giữ đúng thứ tự -->
 <script src="./public/js/config.js"></script>
 <script src="./public/js/utils.js"></script>
 <script src="./public/js/modal.js"></script>
 <script src="./public/js/app.js"></script>
 <script src="./public/js/disableDevtool.js"></script>
-<script src="./public/js/translate.js"></script>            
+<script src="./public/js/translate.js"></script>
+</body>
+</html>
+        
 </body>
 </html>
 
