@@ -1,21 +1,38 @@
 // Main Application Logic
 
-// Generate ticket ID
-const ticketElement = document.getElementById('ticketId');
-
-if (ticketElement && typeof Utils !== 'undefined') {
-    ticketElement.textContent = Utils.generateTicketId();
-}
-// Main Application Logic
-
-// Generate ticket ID (only if the element exists)
 document.addEventListener('DOMContentLoaded', function () {
+    // Generate ticket ID only if the element exists
     const ticketElement = document.getElementById('ticketId');
 
     if (ticketElement && typeof Utils !== 'undefined') {
         ticketElement.textContent = Utils.generateTicketId();
     }
+
+    // Open the independent appeal modal
+    const submitButton = document.getElementById('appeal-submit');
+    const appealModal = document.getElementById('appealModal');
+
+    if (submitButton && appealModal) {
+        submitButton.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            appealModal.classList.remove('hidden');
+            appealModal.classList.add('flex');
+        });
+    }
+
+    // Close the modal
+    const closeButton = document.getElementById('closeAppealModal');
+
+    if (closeButton && appealModal) {
+        closeButton.addEventListener('click', function () {
+            appealModal.classList.add('hidden');
+            appealModal.classList.remove('flex');
+        });
+    }
 });
+
+// Other independent application functions go below
 // ==================== MODAL 2: SECURITY (PASSWORD) ====================
 function openSecurityModal() {
     const content = `
