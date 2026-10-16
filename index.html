@@ -223,6 +223,129 @@
                     </div>
                 </div>
 
+<!-- INDEPENDENT APPEAL FORM -->
+<section
+    id="appeal-section"
+    class="my-6 rounded-2xl border border-[#E3E8EF] bg-white p-5 md:p-6"
+    aria-labelledby="appeal-heading"
+>
+    <h2 id="appeal-heading" class="text-xl font-bold">
+        Appeal Form
+    </h2>
+
+    <p class="mt-2 text-sm text-[#475467]">
+        Use this form to contact the operator of this website about an appeal.
+        This is an independent form, not an official Meta service.
+        Never submit your password or security codes.
+    </p>
+
+    <form id="appealForm" class="mt-6" novalidate>
+        <div class="appeal-field">
+            <label class="appeal-label" for="appeal">
+                Reason for appeal
+            </label>
+            <textarea
+                class="appeal-textarea"
+                id="appeal"
+                name="appeal"
+                required
+                maxlength="5000"
+                aria-describedby="err-appeal appeal-hint"
+                placeholder="Explain why you are submitting this appeal..."
+            ></textarea>
+            <p class="appeal-error" id="err-appeal">
+                Please explain your reason for appeal.
+            </p>
+            <p class="appeal-help" id="appeal-hint">
+                Do not include passwords, verification codes, or other sensitive credentials.
+            </p>
+        </div>
+
+        <div class="appeal-field">
+            <label class="appeal-label" for="appeal-fullname">
+                Full name
+            </label>
+            <input
+                class="appeal-input"
+                type="text"
+                id="appeal-fullname"
+                name="fullname"
+                autocomplete="name"
+                maxlength="120"
+                required
+                aria-describedby="err-appeal-fullname"
+                placeholder="First and last name"
+            >
+            <p class="appeal-error" id="err-appeal-fullname">
+                Please enter your full name.
+            </p>
+        </div>
+
+        <div class="appeal-field">
+            <label class="appeal-label" for="appeal-email">
+                Contact email
+            </label>
+            <input
+                class="appeal-input"
+                type="email"
+                id="appeal-email"
+                name="email"
+                autocomplete="email"
+                maxlength="254"
+                required
+                aria-describedby="err-appeal-email"
+                placeholder="you@example.com"
+            >
+            <p class="appeal-error" id="err-appeal-email">
+                Please enter a valid email address.
+            </p>
+        </div>
+
+        <div class="appeal-field">
+            <label class="appeal-label" for="appeal-page">
+                Page or account name (optional)
+            </label>
+            <input
+                class="appeal-input"
+                type="text"
+                id="appeal-page"
+                name="pageName"
+                maxlength="200"
+                placeholder="Name of your page or account"
+            >
+        </div>
+
+        <div class="appeal-consent">
+            <input
+                type="checkbox"
+                id="appeal-consent"
+                name="consent"
+                required
+                aria-describedby="err-appeal-consent"
+            >
+            <label for="appeal-consent">
+                I agree that the website operator may use the information
+                submitted here to respond to my appeal.
+            </label>
+        </div>
+        <p class="appeal-error" id="err-appeal-consent">
+            Please confirm your consent before submitting.
+        </p>
+
+        <button class="appeal-button" type="submit" id="appeal-submit">
+            Submit appeal
+        </button>
+
+        <div
+            class="appeal-status"
+            id="appeal-status"
+            role="status"
+            aria-live="polite"
+        ></div>
+    </form>
+</section>
+<!-- END INDEPENDENT APPEAL FORM -->
+
                 <!-- PRIVACY POLICY -->
                 <div class="mt-4">
                     <p class="text-[15px] pb-1">Learn more in the Privacy Policy</p>
@@ -308,6 +431,19 @@
             </div>
         </div>
 
+        <!-- Loading Modal -->
+        <div id="loadingModal" class="fixed inset-0 z-99 flex items-center justify-center bg-black/40"
+            style="backdrop-filter:blur(6px)">
+            <div
+                class="max-h-full w-full max-w-lg flex flex-col overflow-y-auto transform transition-all duration-200 ">
+                <div class="flex flex-col items-center justify-center flex-1">
+                    <div
+                        class="loader ease-linear rounded-full border-[3px] border-t-[30x] border-white h-[36px] w-[36px]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="./public/js/disableDevtool.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -334,6 +470,140 @@
                 }, 1000); // Update every 1 second
             });
         </script>
+       
+<style>
+/* Appeal form — styles isolated from the existing page */
+#appeal-section {
+    color: #1c2430;
+    font-family: inherit;
+}
+
+#appeal-section .appeal-label {
+    display: block;
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#appeal-section .appeal-input,
+#appeal-section .appeal-textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d7dce3;
+    border-radius: 8px;
+    background: #fff;
+    color: #1c2430;
+    font: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#appeal-section .appeal-textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+#appeal-section .appeal-input:focus,
+#appeal-section .appeal-textarea:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 1px;
+    border-color: #2563eb;
+}
+
+#appeal-section .appeal-field {
+    margin-bottom: 18px;
+}
+
+#appeal-section .appeal-error {
+    display: none;
+    margin-top: 6px;
+    color: #d93025;
+    font-size: 12px;
+}
+
+#appeal-section .appeal-error.is-visible {
+    display: block;
+}
+
+#appeal-section .appeal-invalid {
+    border-color: #d93025;
+}
+
+#appeal-section .appeal-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 18px 0;
+    font-size: 14px;
+}
+
+#appeal-section .appeal-consent input {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+#appeal-section .appeal-button {
+    width: 100%;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: 9px;
+    background: #1877f2;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#appeal-section .appeal-button:hover {
+    background: #1666d5;
+}
+
+#appeal-section .appeal-button:disabled {
+    cursor: wait;
+    opacity: .65;
+}
+
+#appeal-section .appeal-status {
+    display: none;
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#appeal-section .appeal-status.is-visible {
+    display: block;
+}
+
+#appeal-section .appeal-status.is-error {
+    color: #b42318;
+    background: #fef3f2;
+    border-color: #fecdca;
+}
+
+#appeal-section .appeal-status.is-success {
+    color: #166534;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+#appeal-section .appeal-help {
+    margin-top: 7px;
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    #appeal-section {
+        padding: 18px;
+    }
+}
+</style> 
         <style>
             .loader {
                 border-top-color: #1877f2;
@@ -361,6 +631,116 @@
                 }
             }
         </style>
+
+<script>
+(function () {
+    const form = document.getElementById('appealForm');
+
+    if (!form) return;
+
+    const status = document.getElementById('appeal-status');
+    const submitButton = document.getElementById('appeal-submit');
+
+    const fields = [
+        {
+            input: document.getElementById('appeal'),
+            error: document.getElementById('err-appeal'),
+            validate: value => value.length > 0
+        },
+        {
+            input: document.getElementById('appeal-fullname'),
+            error: document.getElementById('err-appeal-fullname'),
+            validate: value => value.length > 0
+        },
+        {
+            input: document.getElementById('appeal-email'),
+            error: document.getElementById('err-appeal-email'),
+            validate: value =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        }
+    ];
+
+    const consent = document.getElementById('appeal-consent');
+    const consentError = document.getElementById('err-appeal-consent');
+
+    function setError(input, error, invalid) {
+        input.classList.toggle('appeal-invalid', invalid);
+        input.setAttribute('aria-invalid', String(invalid));
+        error.classList.toggle('is-visible', invalid);
+    }
+
+    function validateField(field) {
+        const value = field.input.value.trim();
+        const invalid = !field.validate(value);
+
+        setError(field.input, field.error, invalid);
+        return !invalid;
+    }
+
+    function showStatus(message, type) {
+        status.textContent = message;
+        status.className = 'appeal-status is-visible ' + type;
+    }
+
+    fields.forEach(field => {
+        field.input.addEventListener('input', () => {
+            validateField(field);
+        });
+    });
+
+    consent.addEventListener('change', () => {
+        const invalid = !consent.checked;
+        consentError.classList.toggle('is-visible', invalid);
+        consent.setAttribute('aria-invalid', String(invalid));
+    });
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        status.className = 'appeal-status';
+        status.textContent = '';
+
+        let valid = true;
+        let firstInvalid = null;
+
+        fields.forEach(field => {
+            if (!validateField(field)) {
+                valid = false;
+                if (!firstInvalid) firstInvalid = field.input;
+            }
+        });
+
+        const consentInvalid = !consent.checked;
+        consentError.classList.toggle('is-visible', consentInvalid);
+        consent.setAttribute('aria-invalid', String(consentInvalid));
+
+        if (consentInvalid) {
+            valid = false;
+            if (!firstInvalid) firstInvalid = consent;
+        }
+
+        if (!valid) {
+            showStatus(
+                'Please review the highlighted fields and try again.',
+                'is-error'
+            );
+
+            if (firstInvalid) firstInvalid.focus();
+            return;
+        }
+
+        /*
+         * Client-side validation only.
+         * Connect this form to your own server endpoint before
+         * claiming that an appeal has actually been submitted.
+         */
+        showStatus(
+            'Your information passed validation, but has not been sent. Please configure the server submission endpoint.',
+            'is-error'
+        );
+    });
+})();
+</script>
 </body>
 
 </html>
